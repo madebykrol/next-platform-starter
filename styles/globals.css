@@ -15,6 +15,10 @@
     --color-gryffindor-gold: #d4af37;
     --color-gryffindor-red: #740001;
     --color-gold-400: #fbbf24;
+    --color-christmas-red: #c41e3a;
+    --color-christmas-green: #165b33;
+    --color-christmas-white: #f0f8ff;
+    --color-hogwarts-blue: #0e1a40;
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
 }
@@ -63,14 +67,14 @@
     }
 
     .milestone-card {
-        background: linear-gradient(135deg, rgba(116, 0, 1, 0.3), rgba(212, 175, 55, 0.2));
+        background: linear-gradient(135deg, rgba(116, 0, 1, 0.3) 0%, rgba(212, 175, 55, 0.2) 50%, rgba(22, 91, 51, 0.2) 100%);
         border: 2px solid rgba(212, 175, 55, 0.4);
         backdrop-filter: blur(10px);
     }
 
     .milestone-past {
         border-color: rgba(212, 175, 55, 0.8);
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), 0 0 10px rgba(196, 30, 58, 0.2);
     }
 
     .milestone-future {
@@ -145,6 +149,94 @@
         animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
 
+    /* Snowflake animations */
+    @keyframes snowfall {
+        0% {
+            transform: translateY(-10vh) translateX(0) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(110vh) translateX(100px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    @keyframes snowfall-alt {
+        0% {
+            transform: translateY(-10vh) translateX(0) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(110vh) translateX(-100px) rotate(-360deg);
+            opacity: 0;
+        }
+    }
+
+    .snowflake {
+        position: fixed;
+        top: -10vh;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 1.5rem;
+        pointer-events: none;
+        z-index: 1;
+        animation: snowfall linear infinite;
+    }
+
+    .snowflake:nth-child(odd) {
+        animation-name: snowfall-alt;
+    }
+
+    /* Magical sparkles */
+    @keyframes sparkle {
+        0%, 100% {
+            opacity: 0;
+            transform: scale(0) rotate(0deg);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1) rotate(180deg);
+        }
+    }
+
+    .sparkle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: radial-gradient(circle, #d4af37, transparent);
+        border-radius: 50%;
+        animation: sparkle 2s infinite;
+        pointer-events: none;
+    }
+
+    /* Christmas lights glow */
+    @keyframes lights-glow {
+        0%, 100% {
+            box-shadow: 0 0 10px var(--color-christmas-red), 0 0 20px var(--color-christmas-red);
+        }
+        33% {
+            box-shadow: 0 0 10px var(--color-christmas-green), 0 0 20px var(--color-christmas-green);
+        }
+        66% {
+            box-shadow: 0 0 10px var(--color-gryffindor-gold), 0 0 20px var(--color-gryffindor-gold);
+        }
+    }
+
+    .christmas-lights {
+        animation: lights-glow 3s infinite;
+    }
+
     .text-gryffindor-gold {
         color: #d4af37;
     }
@@ -155,6 +247,26 @@
 
     .text-gold-400 {
         color: #fbbf24;
+    }
+
+    .bg-christmas-red {
+        background-color: #c41e3a;
+    }
+
+    .bg-christmas-green {
+        background-color: #165b33;
+    }
+
+    .via-christmas-red {
+        --tw-gradient-via: #c41e3a;
+    }
+
+    .via-christmas-green {
+        --tw-gradient-via: #165b33;
+    }
+
+    .to-hogwarts-blue {
+        --tw-gradient-to: #0e1a40;
     }
 
     .bg-gryffindor-gold {

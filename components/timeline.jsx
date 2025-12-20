@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 
 // Icon components for different milestone types
 const IconComponents = {
@@ -99,6 +99,29 @@ export function Timeline() {
   // Constants for navigation
   const KEYBOARD_SCROLL_INCREMENT = 100; // pixels to scroll on arrow key press
   const SINGLE_MILESTONE_POSITION = 50; // center position for single milestone (%)
+
+  // Stable snowflake configurations
+  const snowflakes = useMemo(() => 
+    Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      duration: 10 + Math.random() * 10,
+      delay: Math.random() * 5,
+      size: 0.8 + Math.random() * 1.5,
+      opacity: 0.4 + Math.random() * 0.4
+    })), []
+  );
+
+  // Stable sparkle configurations
+  const sparkles = useMemo(() =>
+    Array.from({ length: 15 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 2,
+      duration: 2 + Math.random() * 2
+    })), []
+  );
 
   // Calculate scroll position from mouse event
   const calculateScrollFromPosition = (clientX) => {
@@ -225,7 +248,7 @@ export function Timeline() {
   if (!timelineData) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-2xl text-yellow-400 animate-pulse">Loading magical timeline...</div>
+        <div className="text-2xl text-yellow-400 animate-pulse">✨ Loading your magical Christmas journey... 🎄</div>
       </div>
     );
   }
@@ -236,9 +259,53 @@ export function Timeline() {
 
   return (
     <div className="timeline-container-horizontal min-h-screen flex flex-col py-8 px-6">
+      {/* Falling snowflakes */}
+      {snowflakes.map((flake) => (
+        <div
+          key={flake.id}
+          className="snowflake"
+          style={{
+            left: `${flake.left}%`,
+            animationDuration: `${flake.duration}s`,
+            animationDelay: `${flake.delay}s`,
+            fontSize: `${flake.size}rem`,
+            opacity: flake.opacity
+          }}
+        >
+          ❄
+        </div>
+      ))}
+      
+      {/* Magical sparkles */}
+      {sparkles.map((sparkle) => (
+        <div
+          key={`sparkle-${sparkle.id}`}
+          className="sparkle"
+          style={{
+            left: `${sparkle.left}%`,
+            top: `${sparkle.top}%`,
+            animationDelay: `${sparkle.delay}s`,
+            animationDuration: `${sparkle.duration}s`
+          }}
+        />
+      ))}
+      
+      {/* Christmas border decoration */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-christmas-red to-transparent opacity-30" />
+        <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-christmas-green to-transparent opacity-30" />
+      </div>
+
       <div className="text-center mb-8 mt-8">
-        <h1 className="text-3xl font-bold text-gold-400 mb-3 magical-text">{timelineData.title}</h1>
-        <p className="text-base text-gray-300">Your magical journey through time</p>
+        <h1 className="text-3xl font-bold text-gold-400 mb-3 magical-text">
+          {timelineData.title}
+        </h1>
+        <p className="text-base text-gray-300 italic">
+          "Merry Christmas! Two wizards embark on a magical journey to Hogwarts" 🧙‍♂️✨🧙‍♀️
+        </p>
+        <p className="text-sm text-gryffindor-gold mt-2">
+          ✨ By the power of Gryffindor and the spirit of Christmas ✨
+        </p>
       </div>
 
       <div 
@@ -267,13 +334,13 @@ export function Timeline() {
                 <div className="relative -ml-7">
                   <div className="w-14 h-14">
                     <div className="absolute inset-0 rounded-full bg-gryffindor-gold opacity-30 animate-ping" />
-                    <div className="relative w-full h-full rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center p-3 shadow-glow-strong">
+                    <div className="relative w-full h-full rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center p-3 shadow-glow-strong christmas-lights">
                       <IconComponents.wizard className="animate-pulse-slow" />
                     </div>
                   </div>
                   <div className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap" style={{ top: '60px' }}>
                     <div className="bg-black/90 border-2 border-gryffindor-gold rounded-lg px-3 py-1 text-gryffindor-gold font-bold text-xs shadow-lg">
-                      Now
+                      🧙 Now ⚡
                     </div>
                   </div>
                 </div>
@@ -320,7 +387,14 @@ export function Timeline() {
                     className={`absolute left-1/2 transform -translate-x-1/2 ${isAbove ? 'bottom-16' : 'top-16'}`}
                     style={{ width: '200px' }}
                   >
-                    <div className={`milestone-card ${isPast ? 'milestone-past' : 'milestone-future'} p-3 rounded-lg transform transition-all duration-500 hover:scale-105`}>
+                    <div className={`milestone-card ${isPast ? 'milestone-past' : 'milestone-future'} p-3 rounded-lg transform transition-all duration-500 hover:scale-105 relative overflow-hidden`}>
+                      {/* Christmas decoration on cards */}
+                      {isPast && (
+                        <>
+                          <div className="absolute top-1 right-1 text-xs">🎄</div>
+                          <div className="absolute top-1 left-1 text-xs">⭐</div>
+                        </>
+                      )}
                       <h3 className="text-base font-bold text-gryffindor-gold mb-1 text-center">{milestone.title}</h3>
                       <p className="text-gray-300 mb-1 text-xs text-center">{milestone.description}</p>
                       <div className="text-xs text-gray-400 text-center">
