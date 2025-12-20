@@ -165,11 +165,11 @@ export function Timeline() {
           {/* Wizard "Now" indicator on timeline */}
           {progressPercent > 0 && progressPercent < 100 && (
             <div 
-              className="absolute transform -translate-y-1/2 transition-all duration-1000 z-20"
-              style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '160px' }}
+              className="absolute transition-all duration-1000 z-20"
+              style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '120px' }}
             >
               <div className="relative">
-                <div className="w-14 h-14 -ml-7 -mt-7">
+                <div className="w-14 h-14 -ml-7">
                   <div className="absolute inset-0 rounded-full bg-gryffindor-gold opacity-30 animate-ping" />
                   <div className="relative w-full h-full rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center p-2 shadow-glow-strong animate-pulse-slow">
                     <IconComponents.wizard />
