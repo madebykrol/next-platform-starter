@@ -317,7 +317,7 @@ export function Timeline() {
                       <h3 className="text-base font-bold text-gryffindor-gold mb-1 text-center">{milestone.title}</h3>
                       <p className="text-gray-300 mb-1 text-xs text-center">{milestone.description}</p>
                       <div className="text-xs text-gray-400 text-center">
-                        {milestoneDate.toLocaleDateString('se-SV', { 
+                        {milestoneDate.toLocaleDateString(milestone.locale, { 
                           month: 'short', 
                           day: 'numeric', 
                           year: 'numeric',
