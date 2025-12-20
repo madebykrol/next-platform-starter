@@ -38,6 +38,52 @@ const IconComponents = {
     <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor" className="animate-wizard">
       <path d="M7.5 5.6L5 7L6.4 4.5L5 2L7.5 3.4L10 2L8.6 4.5L10 7L7.5 5.6M19.5 15.4L22 14L20.6 16.5L22 19L19.5 17.6L17 19L18.4 16.5L17 14L19.5 15.4M22 2L20.6 4.5L22 7L19.5 5.6L17 7L18.4 4.5L17 2L19.5 3.4L22 2M13.34 12.78L15.78 10.34L13.66 8.22L11.22 10.66L13.34 12.78M14.37 7.29L16.71 9.63C17.1 10 17.1 10.65 16.71 11.04L5.04 22.71C4.65 23.1 4 23.1 3.63 22.71L1.29 20.37C0.9 20 0.9 19.35 1.29 18.96L12.96 7.29C13.35 6.9 14 6.9 14.37 7.29Z" />
     </svg>
+  ),
+  ticket: () => (
+    <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 10V6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V10C3.1 10 4 10.9 4 12S3.1 14 2 14V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V14C20.9 14 20 13.1 20 12S20.9 10 22 10Z" />
+    </svg>
+  ),
+  document: () => (
+    <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2M13 9V3.5L18.5 9H13Z" />
+    </svg>
+  ),
+
+  food: () => (
+    <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M11 9H9V2H7V9H5V2H3V9C3 11.21 4.79 13 7 13V22H9V13C11.21 13 13 11.21 13 9V2H11V9M16 6V14H18V22H20V2C17.79 2 16 3.79 16 6Z" />
+    </svg>
+  ),
+
+  car: () => (
+    <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M5 11L6.5 6.5H17.5L19 11M18 16.5C17.17 16.5 16.5 15.83 16.5 15S17.17 13.5 18 13.5 19.5 14.17 19.5 15 18.83 16.5 18 16.5M6 16.5C5.17 16.5 4.5 15.83 4.5 15S5.17 13.5 6 13.5 7.5 14.17 7.5 15 6.83 16.5 6 16.5M18.92 6C18.72 5.42 18.16 5 17.5 5H6.5C5.84 5 5.29 5.42 5.08 6L3 12V20C3 20.55 3.45 21 4 21H5C5.55 21 6 20.55 6 20V19H18V20C18 20.55 18.45 21 19 21H20C20.55 21 21 20.55 21 20V12L18.92 6Z" />
+    </svg>
+  ),
+
+  bus: () => (
+    <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M4 16C4 17.1 4.9 18 6 18L5 19V20H7L9 18H15L17 20H19V19L18 18C19.1 18 20 17.1 20 16V6C20 3 16.42 2 12 2S4 3 4 6V16M7.5 16C6.67 16 6 15.33 6 14.5S6.67 13 7.5 13 9 13.67 9 14.5 8.33 16 7.5 16M16.5 16C15.67 16 15 15.33 15 14.5S15.67 13 16.5 13 18 13.67 18 14.5 17.33 16 16.5 16M18 11H6V6H18V11Z" />
+    </svg>
+  ),
+
+  plane: () => (
+    <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M21 16V14L13 9V3.5C13 2.67 12.33 2 11.5 2S10 2.67 10 3.5V9L2 14V16L10 13.5V19L8 20.5V22L11.5 21L15 22V20.5L13 19V13.5L21 16Z" />
+    </svg>
+  ),
+
+  "plane-arrival": () => (
+    <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M2.5 19H21.5V21H2.5V19M21 10.5V8.5L13 3V7.5L21 10.5M2 8.5V10.5L10 7.5V3L2 8.5M10.5 14.5H13.5L14.5 18H9.5L10.5 14.5Z" />
+    </svg>
+  ),
+
+  home: () => (
+    <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z" />
+    </svg>
   )
 };
 
