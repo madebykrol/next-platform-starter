@@ -7,21 +7,24 @@
       "title": "Bokat resa",
       "description": "Flyg, buss och hotell bokade",
       "date": "2025-10-01T09:00:00Z",
-      "icon": "ticket"
+      "icon": "ticket",
+      "locale": "sv-SE"
     },
     {
       "id": "entry-permit",
       "title": "Fixat inresetillstånd",
       "description": "Våra inresetillstånd är klara",
       "date": "2025-11-20T09:10:00Z",
-      "icon": "document"
+      "icon": "document",
+      "locale": "sv-SE"
     },
     {
       "id": "booked-christmas-dinner",
       "title": "Bokat julmiddag",
       "description": "Julmiddag bokad",
       "date": "2025-12-16T11:30:00Z",
-      "icon": "food"
+      "icon": "food",
+      "locale": "sv-SE"
     },
 
     {
@@ -29,28 +32,32 @@
       "title": "Resa mot Karlstad",
       "description": "Avfärd mot Karlstad",
       "date": "2025-12-22T05:45:00Z",
-      "icon": "car"
+      "icon": "car",
+      "locale": "sv-SE"
     },
     {
       "id": "bus-to-arlanda",
       "title": "Buss mot Arlanda",
       "description": "Bussresa till Arlanda",
       "date": "2025-12-22T07:00:00Z",
-      "icon": "bus"
+      "icon": "bus",
+      "locale": "sv-SE"
     },
     {
       "id": "flight-from-arlanda",
       "title": "Flyg från Arlanda",
       "description": "Flyget lyfter från Arlanda",
       "date": "2025-12-22T14:20:00Z",
-      "icon": "plane"
+      "icon": "plane",
+      "locale": "sv-SE"
     },
     {
       "id": "arrival-heathrow",
       "title": "Landar på Heathrow",
       "description": "Ankomst till Heathrow",
       "date": "2025-12-22T16:10:00Z",
-      "icon": "plane-arrival"
+      "icon": "plane-arrival",
+      "locale": "en-GB"
     },
 
     {
@@ -58,7 +65,8 @@
       "title": "Mot Hogwaaarz",
       "description": "På väg mot Hogwarts",
       "date": "2025-12-24T10:00:00Z",
-      "icon": "castle"
+      "icon": "castle",
+      "locale": "en-GB"
     },
 
     {
@@ -66,7 +74,8 @@
       "title": "Christmas Dinner",
       "description": "Julmiddag",
       "date": "2025-12-25T19:30:00Z",
-      "icon": "star"
+      "icon": "star",
+      "locale": "en-GB"
     },
 
     {
@@ -74,14 +83,16 @@
       "title": "Resa mot Victoria Express",
       "description": "Avfärd mot Victoria Express",
       "date": "2025-12-26T06:20:00Z",
-      "icon": "train"
+      "icon": "train",
+      "locale": "en-GB"
     },
     {
       "id": "victoria-express",
       "title": "Victoria Express till Heathrow",
       "description": "Tågresa till Heathrow",
       "date": "2025-12-26T07:00:00Z",
-      "icon": "train"
+      "icon": "train",
+      "locale": "en-GB"
     },
 
     {
@@ -89,35 +100,40 @@
       "title": "Flyg från Heathrow",
       "description": "Hemresa börjar",
       "date": "2025-12-26T10:50:00Z",
-      "icon": "plane"
+      "icon": "plane",
+      "locale": "en-GB"
     },
     {
       "id": "arrival-arlanda",
       "title": "Landar på Arlanda",
       "description": "Ankomst till Arlanda",
-      "date": "2025-12-26T13:25:00Z",
-      "icon": "plane-arrival"
+      "date": "2025-12-26T14:25:00Z",
+      "icon": "plane-arrival",
+      "locale": "sv-SE"
     },
     {
       "id": "bus-to-karlstad",
       "title": "Buss till Karlstad",
       "description": "Bussresa från Arlanda",
       "date": "2025-12-26T14:45:00Z",
-      "icon": "bus"
+      "icon": "bus",
+      "locale": "sv-SE"
     },
     {
       "id": "car-to-kil",
       "title": "Bil till Kil",
       "description": "Sista sträckan hem",
       "date": "2025-12-26T19:25:00Z",
-      "icon": "car"
+      "icon": "car",
+      "locale": "sv-SE"
     },
     {
       "id": "home",
       "title": "HEMMA!!",
       "description": "Resan är avslutad",
       "date": "2025-12-26T20:00:00Z",
-      "icon": "home"
+      "icon": "home",
+      "locale": "sv-SE"
     }
   ]
 }
