@@ -94,21 +94,21 @@ export function Timeline() {
 
   return (
     <div className="timeline-container-horizontal min-h-screen flex flex-col justify-center py-12 px-8">
-      <div className="text-center mb-16">
+      <div className="text-center mb-20">
         <h1 className="text-5xl font-bold text-gold-400 mb-4 magical-text">{timelineData.title}</h1>
         <p className="text-xl text-gray-300">Your magical journey through time</p>
       </div>
 
-      <div className="relative w-full overflow-x-auto pb-24">
-        <div className="min-w-max px-8">
+      <div className="relative w-full overflow-x-auto pb-32" style={{ minHeight: '500px' }}>
+        <div className="min-w-max px-8" style={{ paddingTop: '200px', paddingBottom: '200px' }}>
           {/* Timeline line - horizontal */}
           <div className="relative h-1 bg-gradient-to-r from-gryffindor-gold via-gryffindor-red to-gryffindor-gold opacity-30" 
                style={{ width: `${timelineData.milestones.length * 300}px` }} />
           
           {/* Animated progress line - horizontal */}
           <div 
-            className="absolute left-0 top-0 h-1 bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000 shadow-glow"
-            style={{ width: `${(progressPercent / 100) * timelineData.milestones.length * 300}px` }}
+            className="absolute left-0 h-1 bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000 shadow-glow"
+            style={{ width: `${(progressPercent / 100) * timelineData.milestones.length * 300}px`, top: '200px' }}
           />
 
           {/* Milestones - horizontal layout */}
@@ -125,7 +125,7 @@ export function Timeline() {
                   <div 
                     className={`absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b ${isPast ? 'from-gryffindor-gold to-transparent' : 'from-gray-600 to-transparent'}`}
                     style={{ 
-                      height: '60px',
+                      height: '80px',
                       top: isAbove ? 'auto' : '16px',
                       bottom: isAbove ? '16px' : 'auto'
                     }}
@@ -140,7 +140,7 @@ export function Timeline() {
 
                   {/* Content card - alternating above/below */}
                   <div 
-                    className={`absolute left-1/2 transform -translate-x-1/2 ${isAbove ? 'bottom-20' : 'top-20'}`}
+                    className={`absolute left-1/2 transform -translate-x-1/2 ${isAbove ? 'bottom-24' : 'top-24'}`}
                     style={{ width: '280px' }}
                   >
                     <div className={`milestone-card ${isPast ? 'milestone-past' : 'milestone-future'} p-4 rounded-lg transform transition-all duration-500 hover:scale-105 ${isAbove ? '' : ''}`}>
@@ -165,8 +165,8 @@ export function Timeline() {
           {/* Current time indicator - horizontal */}
           {progressPercent > 0 && progressPercent < 100 && (
             <div 
-              className="absolute top-0 transform -translate-y-1/2 transition-all duration-1000 z-20"
-              style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * 300}px` }}
+              className="absolute transform -translate-y-1/2 transition-all duration-1000 z-20"
+              style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * 300}px`, top: '200px' }}
             >
               <div className="relative">
                 <div className="w-20 h-20 -ml-10 -mt-10">
