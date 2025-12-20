@@ -9,9 +9,12 @@
             color-mix(in oklab, var(--color-neutral-950) 100%, transparent)
         ),
         url('/images/noise.png');
-    --color-primary: #2bdcd2;
-    --color-primary-content: #171717;
-    --color-secondary: #016968;
+    --color-primary: #d4af37;
+    --color-primary-content: #1a0000;
+    --color-secondary: #740001;
+    --color-gryffindor-gold: #d4af37;
+    --color-gryffindor-red: #740001;
+    --color-gold-400: #fbbf24;
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
 }
@@ -40,6 +43,130 @@
 }
 
 @layer components {
+    /* Timeline styles */
+    .timeline-container {
+        min-height: 100vh;
+    }
+
+    .milestone-card {
+        background: linear-gradient(135deg, rgba(116, 0, 1, 0.3), rgba(212, 175, 55, 0.2));
+        border: 2px solid rgba(212, 175, 55, 0.4);
+        backdrop-filter: blur(10px);
+    }
+
+    .milestone-past {
+        border-color: rgba(212, 175, 55, 0.8);
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .milestone-future {
+        border-color: rgba(212, 175, 55, 0.2);
+        opacity: 0.6;
+    }
+
+    .milestone-icon {
+        background: linear-gradient(135deg, #740001, #1a0000);
+        border: 3px solid #d4af37;
+    }
+
+    .icon-past {
+        background: linear-gradient(135deg, #d4af37, #740001);
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+        animation: pulse-glow 2s infinite;
+    }
+
+    .icon-future {
+        border-color: rgba(212, 175, 55, 0.3);
+        opacity: 0.5;
+    }
+
+    .magical-text {
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.5), 0 0 20px rgba(212, 175, 55, 0.3);
+        animation: text-glow 3s ease-in-out infinite;
+    }
+
+    .shadow-glow {
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    }
+
+    .shadow-glow-strong {
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.8), 0 0 60px rgba(212, 175, 55, 0.4);
+    }
+
+    @keyframes pulse-glow {
+        0%, 100% {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+        }
+        50% {
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.9);
+        }
+    }
+
+    @keyframes text-glow {
+        0%, 100% {
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5), 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+        50% {
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.8), 0 0 40px rgba(212, 175, 55, 0.5);
+        }
+    }
+
+    @keyframes wizard-float {
+        0%, 100% {
+            transform: translateY(0) rotate(0deg);
+        }
+        25% {
+            transform: translateY(-3px) rotate(-5deg);
+        }
+        75% {
+            transform: translateY(3px) rotate(5deg);
+        }
+    }
+
+    .animate-wizard {
+        animation: wizard-float 3s ease-in-out infinite;
+    }
+
+    .animate-pulse-slow {
+        animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .text-gryffindor-gold {
+        color: #d4af37;
+    }
+
+    .text-gryffindor-red {
+        color: #740001;
+    }
+
+    .text-gold-400 {
+        color: #fbbf24;
+    }
+
+    .bg-gryffindor-gold {
+        background-color: #d4af37;
+    }
+
+    .bg-gryffindor-red {
+        background-color: #740001;
+    }
+
+    .border-gryffindor-gold {
+        border-color: #d4af37;
+    }
+
+    .from-gryffindor-gold {
+        --tw-gradient-from: #d4af37;
+    }
+
+    .to-gryffindor-red {
+        --tw-gradient-to: #740001;
+    }
+
+    .via-gryffindor-red {
+        --tw-gradient-via: #740001;
+    }
+
     .markdown {
         > * {
             @apply my-4;

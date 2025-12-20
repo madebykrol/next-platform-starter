@@ -1,0 +1,48 @@
+{
+  "startDate": "2024-07-01T09:00:00Z",
+  "title": "Magical Journey Timeline",
+  "milestones": [
+    {
+      "id": "start",
+      "title": "Platform 9¾",
+      "description": "The journey begins",
+      "date": "2024-07-01T09:00:00Z",
+      "icon": "train"
+    },
+    {
+      "id": "milestone1",
+      "title": "Hogsmeade Village",
+      "description": "First stop in the magical village",
+      "date": "2024-07-05T14:30:00Z",
+      "icon": "castle"
+    },
+    {
+      "id": "milestone2",
+      "title": "Forbidden Forest",
+      "description": "Adventure in the dark woods",
+      "date": "2024-07-10T10:00:00Z",
+      "icon": "tree"
+    },
+    {
+      "id": "milestone3",
+      "title": "Diagon Alley",
+      "description": "Shopping for magical supplies",
+      "date": "2024-07-15T16:00:00Z",
+      "icon": "shop"
+    },
+    {
+      "id": "milestone4",
+      "title": "Hogwarts Castle",
+      "description": "Arrival at the grand castle",
+      "date": "2024-07-20T11:00:00Z",
+      "icon": "wand"
+    },
+    {
+      "id": "finale",
+      "title": "Great Hall Feast",
+      "description": "The grand celebration",
+      "date": "2024-07-25T19:00:00Z",
+      "icon": "star"
+    }
+  ]
+}
