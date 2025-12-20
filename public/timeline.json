@@ -55,7 +55,7 @@
       "id": "arrival-heathrow",
       "title": "Landar på Heathrow",
       "description": "Ankomst till Heathrow",
-      "date": "2025-12-22T16:10:00Z",
+      "date": "2025-12-22T17:10:00Z",
       "icon": "plane-arrival",
       "locale": "en-GB"
     },
@@ -107,7 +107,7 @@
       "id": "arrival-arlanda",
       "title": "Landar på Arlanda",
       "description": "Ankomst till Arlanda",
-      "date": "2025-12-26T13:25:00Z",
+      "date": "2025-12-26T14:25:00Z",
       "icon": "plane-arrival",
       "locale": "sv-SE"
     },
