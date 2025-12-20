@@ -4,8 +4,8 @@ import { Header } from '../components/header';
 
 export const metadata = {
     title: {
-        template: '%s | Netlify',
-        default: 'Netlify Starter'
+        template: '%s | Magical Timeline',
+        default: 'Magical Travel Timeline'
     }
 };
 
@@ -15,13 +15,10 @@ export default function RootLayout({ children }) {
             <head>
                 <link rel="icon" href="/favicon.svg" sizes="any" />
             </head>
-            <body className="antialiased text-white bg-blue-900">
-                <div className="flex flex-col min-h-screen px-6 bg-noise sm:px-12">
-                    <div className="flex flex-col w-full max-w-5xl mx-auto grow">
-                        <Header />
-                        <main className="grow">{children}</main>
-                        <Footer />
-                    </div>
+            <body className="antialiased text-white bg-gradient-to-br from-black via-neutral-900 to-neutral-950">
+                <div className="flex flex-col min-h-screen bg-noise">
+                    <main className="grow">{children}</main>
+                    <Footer />
                 </div>
             </body>
         </html>
