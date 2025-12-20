@@ -138,6 +138,13 @@ export function Timeline() {
     const firstMilestone = new Date(milestones[0].date).getTime();
     const lastMilestone = new Date(milestones[milestones.length - 1].date).getTime();
 
+    // Handle single milestone edge case
+    if (milestones.length === 1) {
+      const percent = now >= firstMilestone ? 100 : 0;
+      setProgressPercent(percent);
+      return;
+    }
+
     // Find which segment we're in
     let segmentIndex = 0;
     let positionInSegment = 0;
@@ -160,6 +167,7 @@ export function Timeline() {
           segmentIndex = i;
           const segmentDuration = nextMilestoneTime - currentMilestoneTime;
           const timeIntoSegment = now - currentMilestoneTime;
+          // Guard against division by zero when consecutive milestones have the same date
           positionInSegment = segmentDuration > 0 ? timeIntoSegment / segmentDuration : 0;
           break;
         }
