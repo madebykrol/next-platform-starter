@@ -94,6 +94,7 @@ export function Timeline() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const scrollContainerRef = useRef(null);
+  const miniTimelineRef = useRef(null);
 
   useEffect(() => {
     // Load timeline data
@@ -147,12 +148,11 @@ export function Timeline() {
     return () => container.removeEventListener('scroll', handleScroll);
   }, [timelineData]);
 
-  // Handle mini-timeline drag
-  const handleMiniTimelineClick = (e) => {
-    if (!scrollContainerRef.current) return;
+  // Handle mini-timeline interaction
+  const handleMiniTimelineInteraction = (e) => {
+    if (!scrollContainerRef.current || !miniTimelineRef.current) return;
     
-    const miniTimeline = e.currentTarget;
-    const rect = miniTimeline.getBoundingClientRect();
+    const rect = miniTimelineRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
     
@@ -165,12 +165,9 @@ export function Timeline() {
     if (!isDragging) return;
 
     const handleMouseMove = (e) => {
-      if (!scrollContainerRef.current) return;
+      if (!scrollContainerRef.current || !miniTimelineRef.current) return;
       
-      const miniTimeline = document.querySelector('.mini-timeline-track');
-      if (!miniTimeline) return;
-      
-      const rect = miniTimeline.getBoundingClientRect();
+      const rect = miniTimelineRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
       
@@ -307,14 +304,42 @@ export function Timeline() {
       {/* Mini-timeline navigation with draggable wand */}
       <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-4/5 max-w-4xl z-50">
         <div className="bg-black/80 backdrop-blur-sm border-2 border-gryffindor-gold rounded-lg p-4 shadow-glow-strong">
-          <div className="text-xs text-gryffindor-gold text-center mb-2 font-bold">
+          <div className="text-xs text-gryffindor-gold text-center mb-2 font-bold" id="mini-timeline-label">
             Drag the wand to navigate
           </div>
           <div 
+            ref={miniTimelineRef}
             className="mini-timeline-track relative h-8 bg-gradient-to-r from-gryffindor-red via-gryffindor-gold to-gryffindor-red opacity-30 rounded-full cursor-pointer"
+            role="slider"
+            aria-label="Timeline navigation slider"
+            aria-labelledby="mini-timeline-label"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(scrollPosition)}
+            aria-valuetext={`${Math.round(scrollPosition)}% through timeline`}
+            tabIndex={0}
             onMouseDown={(e) => {
               setIsDragging(true);
-              handleMiniTimelineClick(e);
+              handleMiniTimelineInteraction(e);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                const container = scrollContainerRef.current;
+                if (container) container.scrollLeft -= 100;
+              } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                const container = scrollContainerRef.current;
+                if (container) container.scrollLeft += 100;
+              } else if (e.key === 'Home') {
+                e.preventDefault();
+                const container = scrollContainerRef.current;
+                if (container) container.scrollLeft = 0;
+              } else if (e.key === 'End') {
+                e.preventDefault();
+                const container = scrollContainerRef.current;
+                if (container) container.scrollLeft = container.scrollWidth - container.clientWidth;
+              }
             }}
           >
             {/* Miniature milestones */}
@@ -326,8 +351,9 @@ export function Timeline() {
               return (
                 <div
                   key={milestone.id}
-                  className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2"
+                  className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 pointer-events-none"
                   style={{ left: `${position}%` }}
+                  aria-hidden="true"
                 >
                   <div className={`w-2 h-2 rounded-full ${isPast ? 'bg-gryffindor-gold' : 'bg-gray-600'}`} />
                 </div>
@@ -338,6 +364,7 @@ export function Timeline() {
             <div 
               className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 pointer-events-none"
               style={{ left: `${scrollPosition}%` }}
+              aria-hidden="true"
             >
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center shadow-glow-strong">
                 <IconComponents.wand />
