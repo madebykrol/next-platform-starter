@@ -288,6 +288,13 @@ export function Timeline() {
               const isPast = currentTime >= milestoneDate;
               const Icon = IconComponents[milestone.icon] || IconComponents.star;
               const isAbove = index % 2 === 0;
+              
+              // Map locale to timezone
+              const timezoneMap = {
+                'sv-SE': 'Europe/Stockholm',
+                'en-GB': 'Europe/London'
+              };
+              const timezone = timezoneMap[milestone.locale] || 'UTC';
 
               return (
                 <div key={milestone.id} className="relative" style={{ width: '220px' }}>
@@ -323,7 +330,8 @@ export function Timeline() {
                           year: 'numeric',
                           hour: '2-digit',
                           minute: '2-digit',
-                          hour12: false
+                          hour12: false,
+                          timeZone: timezone
                         })}
                       </div>
                     </div>
