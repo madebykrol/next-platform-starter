@@ -104,6 +104,12 @@ export function Timeline() {
           {/* Timeline line - horizontal */}
           <div className="relative h-1 bg-gradient-to-r from-gryffindor-gold via-gryffindor-red to-gryffindor-gold opacity-30" 
                style={{ width: `${timelineData.milestones.length * 220}px` }} />
+          
+          {/* Animated progress line - horizontal - HIGHLIGHTED */}
+          <div 
+            className="absolute left-0 h-2 bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000 shadow-glow-strong"
+            style={{ width: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '160px' }}
+          />
 
           {/* Milestones - horizontal layout */}
           <div className="relative flex items-start" style={{ marginTop: '-6px' }}>
@@ -155,28 +161,21 @@ export function Timeline() {
               );
             })}
           </div>
-        </div>
-      </div>
 
-      {/* Progress indicator at bottom */}
-      <div className="w-full max-w-3xl mx-auto mt-6 text-center">
-        <div className="text-sm text-gray-400 mb-2">Journey Progress</div>
-        
-        {/* Wizard wand icon above progress bar */}
-        <div className="relative">
+          {/* Wizard "Now" indicator on timeline */}
           {progressPercent > 0 && progressPercent < 100 && (
             <div 
-              className="absolute transition-all duration-1000 z-20"
-              style={{ left: `${progressPercent}%`, bottom: '16px' }}
+              className="absolute transform -translate-y-1/2 transition-all duration-1000 z-20"
+              style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '160px' }}
             >
               <div className="relative">
-                <div className="w-10 h-10 -ml-5">
+                <div className="w-14 h-14 -ml-7 -mt-7">
                   <div className="absolute inset-0 rounded-full bg-gryffindor-gold opacity-30 animate-ping" />
                   <div className="relative w-full h-full rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center p-2 shadow-glow-strong animate-pulse-slow">
                     <IconComponents.wizard />
                   </div>
                 </div>
-                <div className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap" style={{ bottom: '45px' }}>
+                <div className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap" style={{ top: '50px' }}>
                   <div className="bg-black/80 border-2 border-gryffindor-gold rounded-lg px-3 py-1 text-gryffindor-gold font-bold text-xs">
                     Now
                   </div>
@@ -184,16 +183,7 @@ export function Timeline() {
               </div>
             </div>
           )}
-          
-          <div className="relative w-full h-2 bg-gray-800 rounded-full overflow-hidden">
-            <div 
-              className="absolute left-0 top-0 h-full bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000"
-              style={{ width: `${progressPercent}%` }}
-            />
-          </div>
         </div>
-        
-        <div className="text-xl text-gryffindor-gold font-bold mt-2">{Math.round(progressPercent)}%</div>
       </div>
     </div>
   );
