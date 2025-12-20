@@ -161,28 +161,6 @@ export function Timeline() {
               );
             })}
           </div>
-
-          {/* Current time indicator - horizontal */}
-          {progressPercent > 0 && progressPercent < 100 && (
-            <div 
-              className="absolute transform -translate-y-1/2 transition-all duration-1000 z-20"
-              style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '160px' }}
-            >
-              <div className="relative">
-                <div className="w-14 h-14 -ml-7 -mt-7">
-                  <div className="absolute inset-0 rounded-full bg-gryffindor-gold opacity-30 animate-ping" />
-                  <div className="relative w-full h-full rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center p-2 shadow-glow-strong animate-pulse-slow">
-                    <IconComponents.wizard />
-                  </div>
-                </div>
-                <div className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap" style={{ top: '50px' }}>
-                  <div className="bg-black/80 border-2 border-gryffindor-gold rounded-lg px-3 py-1 text-gryffindor-gold font-bold text-xs">
-                    Now
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
 
@@ -194,6 +172,28 @@ export function Timeline() {
             className="absolute left-0 top-0 h-full bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000"
             style={{ width: `${progressPercent}%` }}
           />
+          
+          {/* Wizard wand icon on progress bar */}
+          {progressPercent > 0 && progressPercent < 100 && (
+            <div 
+              className="absolute top-1/2 transform -translate-y-1/2 transition-all duration-1000 z-20"
+              style={{ left: `${progressPercent}%` }}
+            >
+              <div className="relative">
+                <div className="w-10 h-10 -ml-5">
+                  <div className="absolute inset-0 rounded-full bg-gryffindor-gold opacity-30 animate-ping" />
+                  <div className="relative w-full h-full rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center p-2 shadow-glow-strong animate-pulse-slow">
+                    <IconComponents.wizard />
+                  </div>
+                </div>
+                <div className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap" style={{ bottom: '45px' }}>
+                  <div className="bg-black/80 border-2 border-gryffindor-gold rounded-lg px-3 py-1 text-gryffindor-gold font-bold text-xs">
+                    Now
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         <div className="text-xl text-gryffindor-gold font-bold mt-2">{Math.round(progressPercent)}%</div>
       </div>
