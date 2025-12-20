@@ -104,12 +104,6 @@ export function Timeline() {
           {/* Timeline line - horizontal */}
           <div className="relative h-1 bg-gradient-to-r from-gryffindor-gold via-gryffindor-red to-gryffindor-gold opacity-30" 
                style={{ width: `${timelineData.milestones.length * 220}px` }} />
-          
-          {/* Animated progress line - horizontal */}
-          <div 
-            className="absolute left-0 h-1 bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000 shadow-glow"
-            style={{ width: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '160px' }}
-          />
 
           {/* Milestones - horizontal layout */}
           <div className="relative flex items-start" style={{ marginTop: '-6px' }}>
@@ -167,17 +161,13 @@ export function Timeline() {
       {/* Progress indicator at bottom */}
       <div className="w-full max-w-3xl mx-auto mt-6 text-center">
         <div className="text-sm text-gray-400 mb-2">Journey Progress</div>
-        <div className="relative w-full h-2 bg-gray-800 rounded-full overflow-hidden">
-          <div 
-            className="absolute left-0 top-0 h-full bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000"
-            style={{ width: `${progressPercent}%` }}
-          />
-          
-          {/* Wizard wand icon on progress bar */}
+        
+        {/* Wizard wand icon above progress bar */}
+        <div className="relative">
           {progressPercent > 0 && progressPercent < 100 && (
             <div 
-              className="absolute top-1/2 transform -translate-y-1/2 transition-all duration-1000 z-20"
-              style={{ left: `${progressPercent}%` }}
+              className="absolute transition-all duration-1000 z-20"
+              style={{ left: `${progressPercent}%`, bottom: '16px' }}
             >
               <div className="relative">
                 <div className="w-10 h-10 -ml-5">
@@ -194,7 +184,15 @@ export function Timeline() {
               </div>
             </div>
           )}
+          
+          <div className="relative w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div 
+              className="absolute left-0 top-0 h-full bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000"
+              style={{ width: `${progressPercent}%` }}
+            />
+          </div>
         </div>
+        
         <div className="text-xl text-gryffindor-gold font-bold mt-2">{Math.round(progressPercent)}%</div>
       </div>
     </div>
