@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 
 // Icon components for different milestone types
 const IconComponents = {
@@ -119,6 +119,29 @@ export function Timeline() {
   // Constants for navigation
   const KEYBOARD_SCROLL_INCREMENT = 100; // pixels to scroll on arrow key press
   const SINGLE_MILESTONE_POSITION = 50; // center position for single milestone (%)
+
+  // Stable snowflake configurations
+  const snowflakes = useMemo(() => 
+    Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      duration: 10 + Math.random() * 10,
+      delay: Math.random() * 5,
+      size: 0.8 + Math.random() * 1.5,
+      opacity: 0.4 + Math.random() * 0.4
+    })), []
+  );
+
+  // Stable sparkle configurations
+  const sparkles = useMemo(() =>
+    Array.from({ length: 15 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 2,
+      duration: 2 + Math.random() * 2
+    })), []
+  );
 
   // Calculate scroll position from mouse event
   const calculateScrollFromPosition = (clientX) => {
@@ -257,16 +280,16 @@ export function Timeline() {
   return (
     <div className="timeline-container-horizontal min-h-screen flex flex-col py-8 px-6">
       {/* Falling snowflakes */}
-      {[...Array(20)].map((_, i) => (
+      {snowflakes.map((flake) => (
         <div
-          key={i}
+          key={flake.id}
           className="snowflake"
           style={{
-            left: `${Math.random() * 100}%`,
-            animationDuration: `${10 + Math.random() * 10}s`,
-            animationDelay: `${Math.random() * 5}s`,
-            fontSize: `${0.8 + Math.random() * 1.5}rem`,
-            opacity: 0.4 + Math.random() * 0.4
+            left: `${flake.left}%`,
+            animationDuration: `${flake.duration}s`,
+            animationDelay: `${flake.delay}s`,
+            fontSize: `${flake.size}rem`,
+            opacity: flake.opacity
           }}
         >
           ❄
@@ -274,15 +297,15 @@ export function Timeline() {
       ))}
       
       {/* Magical sparkles */}
-      {[...Array(15)].map((_, i) => (
+      {sparkles.map((sparkle) => (
         <div
-          key={`sparkle-${i}`}
+          key={`sparkle-${sparkle.id}`}
           className="sparkle"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 2}s`,
-            animationDuration: `${2 + Math.random() * 2}s`
+            left: `${sparkle.left}%`,
+            top: `${sparkle.top}%`,
+            animationDelay: `${sparkle.delay}s`,
+            animationDuration: `${sparkle.duration}s`
           }}
         />
       ))}
@@ -295,7 +318,7 @@ export function Timeline() {
 
       <div className="text-center mb-8 mt-8">
         <h1 className="text-3xl font-bold text-gold-400 mb-3 magical-text">
-          🎄 {timelineData.title} ⚡
+          {timelineData.title}
         </h1>
         <p className="text-base text-gray-300 italic">
           "Merry Christmas! Two wizards embark on a magical journey to Hogwarts" 🧙‍♂️✨🧙‍♀️
