@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 // Icon components for different milestone types
 const IconComponents = {
@@ -91,6 +91,27 @@ export function Timeline() {
   const [timelineData, setTimelineData] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [progressPercent, setProgressPercent] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const scrollContainerRef = useRef(null);
+  const miniTimelineRef = useRef(null);
+
+  // Constants for navigation
+  const KEYBOARD_SCROLL_INCREMENT = 100; // pixels to scroll on arrow key press
+  const SINGLE_MILESTONE_POSITION = 50; // center position for single milestone (%)
+
+  // Calculate scroll position from mouse event
+  const calculateScrollFromPosition = (clientX) => {
+    if (!scrollContainerRef.current || !miniTimelineRef.current) return;
+    
+    const rect = miniTimelineRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    
+    const container = scrollContainerRef.current;
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    container.scrollLeft = (percent / 100) * maxScroll;
+  };
 
   useEffect(() => {
     // Load timeline data
@@ -111,20 +132,95 @@ export function Timeline() {
   useEffect(() => {
     if (!timelineData) return;
 
-    const start = new Date(timelineData.startDate).getTime();
-    const end = new Date(timelineData.milestones[timelineData.milestones.length - 1].date).getTime();
     const now = currentTime.getTime();
+    const milestones = timelineData.milestones;
+    const startTime = new Date(timelineData.startDate).getTime();
+    const firstMilestone = new Date(milestones[0].date).getTime();
+    const lastMilestone = new Date(milestones[milestones.length - 1].date).getTime();
 
-    let percent = 0;
-    if (now < start) {
-      percent = 0;
-    } else if (now > end) {
-      percent = 100;
-    } else {
-      percent = ((now - start) / (end - start)) * 100;
+    // Handle single milestone edge case
+    if (milestones.length === 1) {
+      const percent = now >= firstMilestone ? 100 : 0;
+      setProgressPercent(percent);
+      return;
     }
-    setProgressPercent(percent);
+
+    // Find which segment we're in
+    let segmentIndex = 0;
+    let positionInSegment = 0;
+
+    if (now < firstMilestone) {
+      // Before first milestone
+      segmentIndex = 0;
+      positionInSegment = 0;
+    } else if (now >= lastMilestone) {
+      // After last milestone
+      segmentIndex = milestones.length - 1;
+      positionInSegment = 1;
+    } else {
+      // Between milestones - find which segment
+      for (let i = 0; i < milestones.length - 1; i++) {
+        const currentMilestoneTime = new Date(milestones[i].date).getTime();
+        const nextMilestoneTime = new Date(milestones[i + 1].date).getTime();
+        
+        if (now >= currentMilestoneTime && now < nextMilestoneTime) {
+          segmentIndex = i;
+          const segmentDuration = nextMilestoneTime - currentMilestoneTime;
+          const timeIntoSegment = now - currentMilestoneTime;
+          // Guard against division by zero when consecutive milestones have the same date
+          positionInSegment = segmentDuration > 0 ? timeIntoSegment / segmentDuration : 0;
+          break;
+        }
+      }
+    }
+
+    // Calculate percentage based on milestone segments (each milestone is evenly spaced)
+    const percent = ((segmentIndex + positionInSegment) / (milestones.length - 1)) * 100;
+    setProgressPercent(Math.max(0, Math.min(100, percent)));
   }, [timelineData, currentTime]);
+
+  // Track scroll position
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft;
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      const scrollPercent = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
+      setScrollPosition(scrollPercent);
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial position
+    
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [timelineData]);
+
+  // Handle mini-timeline interaction
+  const handleMiniTimelineInteraction = (e) => {
+    calculateScrollFromPosition(e.clientX);
+  };
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMouseMove = (e) => {
+      calculateScrollFromPosition(e.clientX);
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
 
   if (!timelineData) {
     return (
@@ -145,7 +241,11 @@ export function Timeline() {
         <p className="text-base text-gray-300">Your magical journey through time</p>
       </div>
 
-      <div className="relative w-full overflow-x-auto pb-20" style={{ minHeight: '400px', paddingTop: '60px' }}>
+      <div 
+        ref={scrollContainerRef}
+        className="relative w-full overflow-x-auto pb-20 timeline-scroll-container" 
+        style={{ minHeight: '400px', paddingTop: '60px' }}
+      >
         <div className="min-w-max px-8" style={{ paddingTop: '160px', paddingBottom: '140px' }}>
           {/* Timeline line - horizontal base */}
           <div className="relative">
@@ -230,6 +330,88 @@ export function Timeline() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </div>
+
+      {/* Mini-timeline navigation with draggable wand */}
+      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-4/5 max-w-4xl z-50">
+        <div className="bg-black/90 backdrop-blur-sm border border-gryffindor-gold/50 rounded-lg px-4 py-2 shadow-lg">
+          <div 
+            ref={miniTimelineRef}
+            className="mini-timeline-track relative h-10 cursor-pointer"
+            role="slider"
+            aria-label="Timeline navigation slider"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(scrollPosition)}
+            aria-valuetext={`${Math.round(scrollPosition)}% through timeline`}
+            tabIndex={0}
+            onMouseDown={(e) => {
+              setIsDragging(true);
+              handleMiniTimelineInteraction(e);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                const container = scrollContainerRef.current;
+                if (container) container.scrollLeft -= KEYBOARD_SCROLL_INCREMENT;
+              } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                const container = scrollContainerRef.current;
+                if (container) container.scrollLeft += KEYBOARD_SCROLL_INCREMENT;
+              } else if (e.key === 'Home') {
+                e.preventDefault();
+                const container = scrollContainerRef.current;
+                if (container) container.scrollLeft = 0;
+              } else if (e.key === 'End') {
+                e.preventDefault();
+                const container = scrollContainerRef.current;
+                if (container) container.scrollLeft = container.scrollWidth - container.clientWidth;
+              }
+            }}
+          >
+            {/* Background track line */}
+            <div className="absolute top-1/2 -translate-y-1/2 w-full h-0.5 bg-gradient-to-r from-gryffindor-red/30 via-gryffindor-gold/30 to-gryffindor-red/30" />
+            
+            {/* Miniature milestone icons */}
+            {timelineData.milestones.map((milestone, index) => {
+              // Handle single milestone case to avoid division by zero
+              const position = timelineData.milestones.length > 1 
+                ? (index / (timelineData.milestones.length - 1)) * 100 
+                : SINGLE_MILESTONE_POSITION;
+              const milestoneDate = new Date(milestone.date);
+              const isPast = currentTime >= milestoneDate;
+              const Icon = IconComponents[milestone.icon] || IconComponents.star;
+              
+              return (
+                <div
+                  key={milestone.id}
+                  className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 pointer-events-none"
+                  style={{ left: `${position}%` }}
+                  aria-hidden="true"
+                >
+                  <div className={`w-5 h-5 rounded-full flex items-center justify-center p-1 ${
+                    isPast 
+                      ? 'bg-gryffindor-gold/80 text-gryffindor-red' 
+                      : 'bg-gray-700/50 text-gray-500'
+                  }`}>
+                    <Icon />
+                  </div>
+                </div>
+              );
+            })}
+            
+            {/* Draggable wand indicator */}
+            <div 
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 pointer-events-none z-10"
+              style={{ left: `${scrollPosition}%` }}
+              aria-hidden="true"
+            >
+              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center shadow-lg border-2 border-gryffindor-gold/50">
+                <IconComponents.wand />
+              </div>
+            </div>
           </div>
         </div>
       </div>
