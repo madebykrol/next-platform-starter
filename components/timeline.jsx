@@ -93,14 +93,14 @@ export function Timeline() {
   const totalDuration = endDate - startDate;
 
   return (
-    <div className="timeline-container-horizontal min-h-screen flex flex-col justify-center py-8 px-6">
-      <div className="text-center mb-12">
+    <div className="timeline-container-horizontal min-h-screen flex flex-col py-8 px-6">
+      <div className="text-center mb-8 mt-8">
         <h1 className="text-3xl font-bold text-gold-400 mb-3 magical-text">{timelineData.title}</h1>
         <p className="text-base text-gray-300">Your magical journey through time</p>
       </div>
 
-      <div className="relative w-full overflow-x-auto pb-20" style={{ minHeight: '400px' }}>
-        <div className="min-w-max px-8" style={{ paddingTop: '140px', paddingBottom: '140px' }}>
+      <div className="relative w-full overflow-x-auto pb-20" style={{ minHeight: '400px', paddingTop: '60px' }}>
+        <div className="min-w-max px-8" style={{ paddingTop: '160px', paddingBottom: '140px' }}>
           {/* Timeline line - horizontal */}
           <div className="relative h-1 bg-gradient-to-r from-gryffindor-gold via-gryffindor-red to-gryffindor-gold opacity-30" 
                style={{ width: `${timelineData.milestones.length * 220}px` }} />
@@ -108,7 +108,7 @@ export function Timeline() {
           {/* Animated progress line - horizontal */}
           <div 
             className="absolute left-0 h-1 bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000 shadow-glow"
-            style={{ width: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '140px' }}
+            style={{ width: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '160px' }}
           />
 
           {/* Milestones - horizontal layout */}
@@ -166,7 +166,7 @@ export function Timeline() {
           {progressPercent > 0 && progressPercent < 100 && (
             <div 
               className="absolute transform -translate-y-1/2 transition-all duration-1000 z-20"
-              style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '140px' }}
+              style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '160px' }}
             >
               <div className="relative">
                 <div className="w-14 h-14 -ml-7 -mt-7">
