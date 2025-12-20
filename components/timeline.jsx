@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 // Icon components for different milestone types
 const IconComponents = {
@@ -91,6 +91,9 @@ export function Timeline() {
   const [timelineData, setTimelineData] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [progressPercent, setProgressPercent] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const scrollContainerRef = useRef(null);
 
   useEffect(() => {
     // Load timeline data
@@ -126,6 +129,69 @@ export function Timeline() {
     setProgressPercent(percent);
   }, [timelineData, currentTime]);
 
+  // Track scroll position
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft;
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      const scrollPercent = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
+      setScrollPosition(scrollPercent);
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial position
+    
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [timelineData]);
+
+  // Handle mini-timeline drag
+  const handleMiniTimelineClick = (e) => {
+    if (!scrollContainerRef.current) return;
+    
+    const miniTimeline = e.currentTarget;
+    const rect = miniTimeline.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    
+    const container = scrollContainerRef.current;
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    container.scrollLeft = (percent / 100) * maxScroll;
+  };
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMouseMove = (e) => {
+      if (!scrollContainerRef.current) return;
+      
+      const miniTimeline = document.querySelector('.mini-timeline-track');
+      if (!miniTimeline) return;
+      
+      const rect = miniTimeline.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
+      
+      const container = scrollContainerRef.current;
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      container.scrollLeft = (percent / 100) * maxScroll;
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
+
   if (!timelineData) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -145,7 +211,11 @@ export function Timeline() {
         <p className="text-base text-gray-300">Your magical journey through time</p>
       </div>
 
-      <div className="relative w-full overflow-x-auto pb-20" style={{ minHeight: '400px', paddingTop: '60px' }}>
+      <div 
+        ref={scrollContainerRef}
+        className="relative w-full overflow-x-auto pb-20 timeline-scroll-container" 
+        style={{ minHeight: '400px', paddingTop: '60px' }}
+      >
         <div className="min-w-max px-8" style={{ paddingTop: '160px', paddingBottom: '140px' }}>
           {/* Timeline line - horizontal base */}
           <div className="relative">
@@ -230,6 +300,49 @@ export function Timeline() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </div>
+
+      {/* Mini-timeline navigation with draggable wand */}
+      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-4/5 max-w-4xl z-50">
+        <div className="bg-black/80 backdrop-blur-sm border-2 border-gryffindor-gold rounded-lg p-4 shadow-glow-strong">
+          <div className="text-xs text-gryffindor-gold text-center mb-2 font-bold">
+            Drag the wand to navigate
+          </div>
+          <div 
+            className="mini-timeline-track relative h-8 bg-gradient-to-r from-gryffindor-red via-gryffindor-gold to-gryffindor-red opacity-30 rounded-full cursor-pointer"
+            onMouseDown={(e) => {
+              setIsDragging(true);
+              handleMiniTimelineClick(e);
+            }}
+          >
+            {/* Miniature milestones */}
+            {timelineData.milestones.map((milestone, index) => {
+              const position = (index / (timelineData.milestones.length - 1)) * 100;
+              const milestoneDate = new Date(milestone.date);
+              const isPast = currentTime >= milestoneDate;
+              
+              return (
+                <div
+                  key={milestone.id}
+                  className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2"
+                  style={{ left: `${position}%` }}
+                >
+                  <div className={`w-2 h-2 rounded-full ${isPast ? 'bg-gryffindor-gold' : 'bg-gray-600'}`} />
+                </div>
+              );
+            })}
+            
+            {/* Draggable wand indicator */}
+            <div 
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 pointer-events-none"
+              style={{ left: `${scrollPosition}%` }}
+            >
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center shadow-glow-strong">
+                <IconComponents.wand />
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -52,6 +52,16 @@
         min-height: 100vh;
     }
 
+    /* Hide scrollbar while maintaining scroll functionality */
+    .timeline-scroll-container {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .timeline-scroll-container::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+
     .milestone-card {
         background: linear-gradient(135deg, rgba(116, 0, 1, 0.3), rgba(212, 175, 55, 0.2));
         border: 2px solid rgba(212, 175, 55, 0.4);
