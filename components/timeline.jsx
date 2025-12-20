@@ -96,6 +96,19 @@ export function Timeline() {
   const scrollContainerRef = useRef(null);
   const miniTimelineRef = useRef(null);
 
+  // Calculate scroll position from mouse event
+  const calculateScrollFromPosition = (clientX) => {
+    if (!scrollContainerRef.current || !miniTimelineRef.current) return;
+    
+    const rect = miniTimelineRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    
+    const container = scrollContainerRef.current;
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    container.scrollLeft = (percent / 100) * maxScroll;
+  };
+
   useEffect(() => {
     // Load timeline data
     fetch('/timeline.json')
@@ -150,30 +163,14 @@ export function Timeline() {
 
   // Handle mini-timeline interaction
   const handleMiniTimelineInteraction = (e) => {
-    if (!scrollContainerRef.current || !miniTimelineRef.current) return;
-    
-    const rect = miniTimelineRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    
-    const container = scrollContainerRef.current;
-    const maxScroll = container.scrollWidth - container.clientWidth;
-    container.scrollLeft = (percent / 100) * maxScroll;
+    calculateScrollFromPosition(e.clientX);
   };
 
   useEffect(() => {
     if (!isDragging) return;
 
     const handleMouseMove = (e) => {
-      if (!scrollContainerRef.current || !miniTimelineRef.current) return;
-      
-      const rect = miniTimelineRef.current.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
-      
-      const container = scrollContainerRef.current;
-      const maxScroll = container.scrollWidth - container.clientWidth;
-      container.scrollLeft = (percent / 100) * maxScroll;
+      calculateScrollFromPosition(e.clientX);
     };
 
     const handleMouseUp = () => {
@@ -344,7 +341,10 @@ export function Timeline() {
           >
             {/* Miniature milestones */}
             {timelineData.milestones.map((milestone, index) => {
-              const position = (index / (timelineData.milestones.length - 1)) * 100;
+              // Handle single milestone case to avoid division by zero
+              const position = timelineData.milestones.length > 1 
+                ? (index / (timelineData.milestones.length - 1)) * 100 
+                : 50;
               const milestoneDate = new Date(milestone.date);
               const isPast = currentTime >= milestoneDate;
               
