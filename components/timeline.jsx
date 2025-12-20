@@ -101,15 +101,39 @@ export function Timeline() {
 
       <div className="relative w-full overflow-x-auto pb-20" style={{ minHeight: '400px', paddingTop: '60px' }}>
         <div className="min-w-max px-8" style={{ paddingTop: '160px', paddingBottom: '140px' }}>
-          {/* Timeline line - horizontal */}
-          <div className="relative h-1 bg-gradient-to-r from-gryffindor-gold via-gryffindor-red to-gryffindor-gold opacity-30" 
-               style={{ width: `${timelineData.milestones.length * 220}px` }} />
-          
-          {/* Animated progress line - horizontal - HIGHLIGHTED */}
-          <div 
-            className="absolute left-0 h-2 bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000 shadow-glow-strong"
-            style={{ width: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '160px' }}
-          />
+          {/* Timeline line - horizontal base */}
+          <div className="relative">
+            <div className="h-1 bg-gradient-to-r from-gryffindor-gold via-gryffindor-red to-gryffindor-gold opacity-30" 
+                 style={{ width: `${timelineData.milestones.length * 220}px` }} />
+            
+            {/* Animated progress line - highlighted portion */}
+            <div 
+              className="absolute left-0 top-0 h-1 bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000 shadow-glow-strong"
+              style={{ width: `${(progressPercent / 100) * timelineData.milestones.length * 220}px` }}
+            />
+
+            {/* Wizard "Now" indicator - at end of progress line */}
+            {progressPercent > 0 && progressPercent < 100 && (
+              <div 
+                className="absolute top-1/2 -translate-y-1/2 z-30 transition-all duration-1000"
+                style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * 220}px` }}
+              >
+                <div className="relative -ml-7">
+                  <div className="w-14 h-14">
+                    <div className="absolute inset-0 rounded-full bg-gryffindor-gold opacity-30 animate-ping" />
+                    <div className="relative w-full h-full rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center p-3 shadow-glow-strong">
+                      <IconComponents.wizard className="animate-pulse-slow" />
+                    </div>
+                  </div>
+                  <div className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap" style={{ top: '60px' }}>
+                    <div className="bg-black/90 border-2 border-gryffindor-gold rounded-lg px-3 py-1 text-gryffindor-gold font-bold text-xs shadow-lg">
+                      Now
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Milestones - horizontal layout */}
           <div className="relative flex items-start" style={{ marginTop: '-6px' }}>
@@ -161,28 +185,6 @@ export function Timeline() {
               );
             })}
           </div>
-
-          {/* Wizard "Now" indicator on timeline */}
-          {progressPercent > 0 && progressPercent < 100 && (
-            <div 
-              className="absolute transition-all duration-1000 z-20"
-              style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '120px' }}
-            >
-              <div className="relative">
-                <div className="w-14 h-14 -ml-7">
-                  <div className="absolute inset-0 rounded-full bg-gryffindor-gold opacity-30 animate-ping" />
-                  <div className="relative w-full h-full rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center p-2 shadow-glow-strong animate-pulse-slow">
-                    <IconComponents.wizard />
-                  </div>
-                </div>
-                <div className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap" style={{ top: '50px' }}>
-                  <div className="bg-black/80 border-2 border-gryffindor-gold rounded-lg px-3 py-1 text-gryffindor-gold font-bold text-xs">
-                    Now
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
