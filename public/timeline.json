@@ -1,11 +1,11 @@
 {
   "startDate": "2025-10-01T10:00:00Z",
-  "title": "Resplan – Julresa",
+  "title": "🎄 Wizards' Christmas Journey to Hogwarts ⚡",
   "milestones": [
     {
       "id": "booking-trip",
       "title": "Bokat resa",
-      "description": "Flyg, buss och hotell bokade",
+      "description": "Flyg, buss och hotell bokade - Resan planerad av Ministeriet för Magi",
       "date": "2025-10-01T09:00:00Z",
       "icon": "ticket",
       "locale": "sv-SE"
@@ -13,7 +13,7 @@
     {
       "id": "entry-permit",
       "title": "Fixat inresetillstånd",
-      "description": "Våra inresetillstånd är klara",
+      "description": "Våra magiska inresetillstånd är klara ⚡",
       "date": "2025-11-20T09:10:00Z",
       "icon": "document",
       "locale": "sv-SE"
@@ -21,7 +21,7 @@
     {
       "id": "booked-christmas-dinner",
       "title": "Bokat julmiddag",
-      "description": "Julmiddag bokad",
+      "description": "Julmiddag i Den Stora Salen bokad 🎄",
       "date": "2025-12-16T11:30:00Z",
       "icon": "food",
       "locale": "sv-SE"
@@ -30,7 +30,7 @@
     {
       "id": "travel-to-karlstad",
       "title": "Resa mot Karlstad",
-      "description": "Avfärd mot Karlstad",
+      "description": "Avfärd mot Karlstad - resan börjar! ✨",
       "date": "2025-12-22T05:45:00Z",
       "icon": "car",
       "locale": "sv-SE"
@@ -38,7 +38,7 @@
     {
       "id": "bus-to-arlanda",
       "title": "Buss mot Arlanda",
-      "description": "Bussresa till Arlanda",
+      "description": "Mugglartransport till Arlanda",
       "date": "2025-12-22T07:00:00Z",
       "icon": "bus",
       "locale": "sv-SE"
@@ -46,7 +46,7 @@
     {
       "id": "flight-from-arlanda",
       "title": "Flyg från Arlanda",
-      "description": "Flyget lyfter från Arlanda",
+      "description": "Flyget lyfter - mot England! 🦉",
       "date": "2025-12-22T14:20:00Z",
       "icon": "plane",
       "locale": "sv-SE"
@@ -54,7 +54,7 @@
     {
       "id": "arrival-heathrow",
       "title": "Landar på Heathrow",
-      "description": "Ankomst till Heathrow",
+      "description": "Ankomst till det magiska England",
       "date": "2025-12-22T17:10:00Z",
       "icon": "plane-arrival",
       "locale": "en-GB"
@@ -62,8 +62,8 @@
 
     {
       "id": "towards-hogwarts",
-      "title": "Mot Hogwaaarz",
-      "description": "På väg mot Hogwarts",
+      "title": "Mot Hogwaaarz 🏰",
+      "description": "På väg mot Trollkarlsskolan - som Hogwartsexpressen!",
       "date": "2025-12-24T10:00:00Z",
       "icon": "castle",
       "locale": "en-GB"
@@ -71,8 +71,8 @@
 
     {
       "id": "christmas-dinner",
-      "title": "Christmas Dinner",
-      "description": "Julmiddag",
+      "title": "Christmas Dinner 🎄",
+      "description": "Magisk julmiddag vid Hogwarts",
       "date": "2025-12-25T19:30:00Z",
       "icon": "star",
       "locale": "en-GB"
@@ -81,7 +81,7 @@
     {
       "id": "travel-to-victoria-express",
       "title": "Resa mot Victoria Express",
-      "description": "Avfärd mot Victoria Express",
+      "description": "Avfärd mot Victoria Express - hemresan börjar",
       "date": "2025-12-26T06:20:00Z",
       "icon": "train",
       "locale": "en-GB"
@@ -89,7 +89,7 @@
     {
       "id": "victoria-express",
       "title": "Victoria Express till Heathrow",
-      "description": "Tågresa till Heathrow",
+      "description": "Tågresa - precis som Hogwartsexpressen! 🚂",
       "date": "2025-12-26T07:00:00Z",
       "icon": "train",
       "locale": "en-GB"
@@ -98,7 +98,7 @@
     {
       "id": "flight-from-heathrow",
       "title": "Flyg från Heathrow",
-      "description": "Hemresa börjar",
+      "description": "Hemresa börjar - minnen från Hogwarts i bagaget",
       "date": "2025-12-26T10:50:00Z",
       "icon": "plane",
       "locale": "en-GB"
@@ -106,7 +106,7 @@
     {
       "id": "arrival-arlanda",
       "title": "Landar på Arlanda",
-      "description": "Ankomst till Arlanda",
+      "description": "Tillbaka i Sverige med magiska minnen",
       "date": "2025-12-26T14:25:00Z",
       "icon": "plane-arrival",
       "locale": "sv-SE"
@@ -114,7 +114,7 @@
     {
       "id": "bus-to-karlstad",
       "title": "Buss till Karlstad",
-      "description": "Bussresa från Arlanda",
+      "description": "Bussresa från Arlanda - snart hemma",
       "date": "2025-12-26T15:45:00Z",
       "icon": "bus",
       "locale": "sv-SE"
@@ -122,15 +122,15 @@
     {
       "id": "car-to-kil",
       "title": "Bil till Kil",
-      "description": "Sista sträckan hem",
+      "description": "Sista sträckan hem med julens magi",
       "date": "2025-12-26T19:25:00Z",
       "icon": "car",
       "locale": "sv-SE"
     },
     {
       "id": "home",
-      "title": "HEMMA!!",
-      "description": "Resan är avslutad",
+      "title": "HEMMA!! 🏡✨",
+      "description": "Resan är avslutad - Mischief Managed!",
       "date": "2025-12-26T20:00:00Z",
       "icon": "home",
       "locale": "sv-SE"

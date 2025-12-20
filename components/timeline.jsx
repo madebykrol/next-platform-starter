@@ -84,6 +84,26 @@ const IconComponents = {
     <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
       <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z" />
     </svg>
+  ),
+  snowflake: () => (
+    <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.79,13.95L18.46,14.57L16.87,13.5V10.5L18.46,9.43L20.79,10.05L21.31,8.12L19.54,7.65L20,5.88L18.07,5.36L17.45,7.69L15.86,8.76L13,7.28V5.74L14.89,3.85L13.48,2.44L12,3.92L10.52,2.44L9.11,3.85L11,5.74V7.28L8.14,8.76L6.55,7.69L5.93,5.36L4,5.88L4.46,7.65L2.69,8.12L3.21,10.05L5.54,9.43L7.13,10.5V13.5L5.54,14.57L3.21,13.95L2.69,15.88L4.46,16.35L4,18.12L5.93,18.64L6.55,16.31L8.14,15.24L11,16.72V18.26L9.11,20.15L10.52,21.56L12,20.08L13.48,21.56L14.89,20.15L13,18.26V16.72L15.86,15.24L17.45,16.31L18.07,18.64L20,18.12L19.54,16.35L21.31,15.88L20.79,13.95Z" />
+    </svg>
+  ),
+  gift: () => (
+    <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22,12V20A2,2 0 0,1 20,22H4A2,2 0 0,1 2,20V12A1,1 0 0,1 1,11V8A2,2 0 0,1 3,6H6.17C6.06,5.69 6,5.35 6,5A3,3 0 0,1 9,2C10,2 10.88,2.5 11.43,3.24V3.23L12,4L12.57,3.23V3.24C13.12,2.5 14,2 15,2A3,3 0 0,1 18,5C18,5.35 17.94,5.69 17.83,6H21A2,2 0 0,1 23,8V11A1,1 0 0,1 22,12M4,20H11V12H4V20M20,20V12H13V20H20M9,4A1,1 0 0,0 8,5A1,1 0 0,0 9,6A1,1 0 0,0 10,5A1,1 0 0,0 9,4M15,4A1,1 0 0,0 14,5A1,1 0 0,0 15,6A1,1 0 0,0 16,5A1,1 0 0,0 15,4M3,8V10H11V8H3M13,8V10H21V8H13Z" />
+    </svg>
+  ),
+  holly: () => (
+    <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.5,16.28C12.67,16.28 12.82,16.23 12.95,16.11C13.5,15.64 14.03,15.17 14.5,14.67C15.39,13.33 15.5,11.78 14.82,10.79C14.28,10 13.27,9.68 12.35,10.05C12.11,9.43 11.57,9 10.92,9C10.27,9 9.73,9.43 9.5,10.05C8.57,9.68 7.57,10 7.03,10.79C6.34,11.78 6.46,13.33 7.35,14.67L9.5,16.28M21.85,10.79C21.31,10 20.3,9.68 19.38,10.05C19.14,9.43 18.6,9 17.95,9C17.3,9 16.76,9.43 16.5,10.05C15.6,9.68 14.6,10 14.06,10.79C13.37,11.78 13.5,13.33 14.38,14.67C14.85,15.17 15.38,15.64 15.93,16.11C16.07,16.23 16.22,16.28 16.38,16.28L18.5,14.67L19.5,13.67C20.4,12.33 20.5,10.78 21.85,10.79M7.13,10.79C6.59,10 5.58,9.68 4.66,10.05C4.42,9.43 3.88,9 3.23,9C2.58,9 2.04,9.43 1.81,10.05C0.88,9.68 -0.13,10 -0.67,10.79C-1.36,11.78 -1.23,13.33 -0.35,14.67C0.12,15.17 0.65,15.64 1.2,16.11C1.34,16.23 1.5,16.28 1.66,16.28L3.81,14.67L4.81,13.67C5.7,12.33 5.81,10.78 7.13,10.79M12,19A2,2 0 0,1 10,17A2,2 0 0,1 12,15A2,2 0 0,1 14,17A2,2 0 0,1 12,19Z" />
+    </svg>
+  ),
+  hogwarts: () => (
+    <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12,2L2,9L12,16L22,9L12,2M12,5.25L17.25,9L12,12.75L6.75,9L12,5.25M2,15V17L12,24L22,17V15L12,22L2,15Z" />
+    </svg>
   )
 };
 
@@ -225,7 +245,7 @@ export function Timeline() {
   if (!timelineData) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-2xl text-yellow-400 animate-pulse">Loading magical timeline...</div>
+        <div className="text-2xl text-yellow-400 animate-pulse">✨ Loading your magical Christmas journey... 🎄</div>
       </div>
     );
   }
@@ -236,9 +256,53 @@ export function Timeline() {
 
   return (
     <div className="timeline-container-horizontal min-h-screen flex flex-col py-8 px-6">
+      {/* Falling snowflakes */}
+      {[...Array(20)].map((_, i) => (
+        <div
+          key={i}
+          className="snowflake"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDuration: `${10 + Math.random() * 10}s`,
+            animationDelay: `${Math.random() * 5}s`,
+            fontSize: `${0.8 + Math.random() * 1.5}rem`,
+            opacity: 0.4 + Math.random() * 0.4
+          }}
+        >
+          ❄
+        </div>
+      ))}
+      
+      {/* Magical sparkles */}
+      {[...Array(15)].map((_, i) => (
+        <div
+          key={`sparkle-${i}`}
+          className="sparkle"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 2}s`,
+            animationDuration: `${2 + Math.random() * 2}s`
+          }}
+        />
+      ))}
+      
+      {/* Christmas border decoration */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-christmas-red to-transparent opacity-30" />
+        <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-christmas-green to-transparent opacity-30" />
+      </div>
+
       <div className="text-center mb-8 mt-8">
-        <h1 className="text-3xl font-bold text-gold-400 mb-3 magical-text">{timelineData.title}</h1>
-        <p className="text-base text-gray-300">Your magical journey through time</p>
+        <h1 className="text-3xl font-bold text-gold-400 mb-3 magical-text">
+          🎄 {timelineData.title} ⚡
+        </h1>
+        <p className="text-base text-gray-300 italic">
+          "Merry Christmas! Two wizards embark on a magical journey to Hogwarts" 🧙‍♂️✨🧙‍♀️
+        </p>
+        <p className="text-sm text-gryffindor-gold mt-2">
+          ✨ By the power of Gryffindor and the spirit of Christmas ✨
+        </p>
       </div>
 
       <div 
@@ -267,13 +331,13 @@ export function Timeline() {
                 <div className="relative -ml-7">
                   <div className="w-14 h-14">
                     <div className="absolute inset-0 rounded-full bg-gryffindor-gold opacity-30 animate-ping" />
-                    <div className="relative w-full h-full rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center p-3 shadow-glow-strong">
+                    <div className="relative w-full h-full rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center p-3 shadow-glow-strong christmas-lights">
                       <IconComponents.wizard className="animate-pulse-slow" />
                     </div>
                   </div>
                   <div className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap" style={{ top: '60px' }}>
                     <div className="bg-black/90 border-2 border-gryffindor-gold rounded-lg px-3 py-1 text-gryffindor-gold font-bold text-xs shadow-lg">
-                      Now
+                      🧙 Now ⚡
                     </div>
                   </div>
                 </div>
@@ -320,7 +384,14 @@ export function Timeline() {
                     className={`absolute left-1/2 transform -translate-x-1/2 ${isAbove ? 'bottom-16' : 'top-16'}`}
                     style={{ width: '200px' }}
                   >
-                    <div className={`milestone-card ${isPast ? 'milestone-past' : 'milestone-future'} p-3 rounded-lg transform transition-all duration-500 hover:scale-105`}>
+                    <div className={`milestone-card ${isPast ? 'milestone-past' : 'milestone-future'} p-3 rounded-lg transform transition-all duration-500 hover:scale-105 relative overflow-hidden`}>
+                      {/* Christmas decoration on cards */}
+                      {isPast && (
+                        <>
+                          <div className="absolute top-1 right-1 text-xs">🎄</div>
+                          <div className="absolute top-1 left-1 text-xs">⭐</div>
+                        </>
+                      )}
                       <h3 className="text-base font-bold text-gryffindor-gold mb-1 text-center">{milestone.title}</h3>
                       <p className="text-gray-300 mb-1 text-xs text-center">{milestone.description}</p>
                       <div className="text-xs text-gray-400 text-center">
