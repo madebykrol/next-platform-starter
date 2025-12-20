@@ -93,26 +93,26 @@ export function Timeline() {
   const totalDuration = endDate - startDate;
 
   return (
-    <div className="timeline-container-horizontal min-h-screen flex flex-col justify-center py-12 px-8">
-      <div className="text-center mb-20">
-        <h1 className="text-5xl font-bold text-gold-400 mb-4 magical-text">{timelineData.title}</h1>
-        <p className="text-xl text-gray-300">Your magical journey through time</p>
+    <div className="timeline-container-horizontal min-h-screen flex flex-col justify-center py-8 px-6">
+      <div className="text-center mb-12">
+        <h1 className="text-3xl font-bold text-gold-400 mb-3 magical-text">{timelineData.title}</h1>
+        <p className="text-base text-gray-300">Your magical journey through time</p>
       </div>
 
-      <div className="relative w-full overflow-x-auto pb-32" style={{ minHeight: '500px' }}>
-        <div className="min-w-max px-8" style={{ paddingTop: '200px', paddingBottom: '200px' }}>
+      <div className="relative w-full overflow-x-auto pb-20" style={{ minHeight: '400px' }}>
+        <div className="min-w-max px-8" style={{ paddingTop: '140px', paddingBottom: '140px' }}>
           {/* Timeline line - horizontal */}
           <div className="relative h-1 bg-gradient-to-r from-gryffindor-gold via-gryffindor-red to-gryffindor-gold opacity-30" 
-               style={{ width: `${timelineData.milestones.length * 300}px` }} />
+               style={{ width: `${timelineData.milestones.length * 220}px` }} />
           
           {/* Animated progress line - horizontal */}
           <div 
             className="absolute left-0 h-1 bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000 shadow-glow"
-            style={{ width: `${(progressPercent / 100) * timelineData.milestones.length * 300}px`, top: '200px' }}
+            style={{ width: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '140px' }}
           />
 
           {/* Milestones - horizontal layout */}
-          <div className="relative flex items-start" style={{ marginTop: '-8px' }}>
+          <div className="relative flex items-start" style={{ marginTop: '-6px' }}>
             {timelineData.milestones.map((milestone, index) => {
               const milestoneDate = new Date(milestone.date);
               const isPast = currentTime >= milestoneDate;
@@ -120,32 +120,32 @@ export function Timeline() {
               const isAbove = index % 2 === 0;
 
               return (
-                <div key={milestone.id} className="relative" style={{ width: '300px' }}>
+                <div key={milestone.id} className="relative" style={{ width: '220px' }}>
                   {/* Vertical connector line */}
                   <div 
                     className={`absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b ${isPast ? 'from-gryffindor-gold to-transparent' : 'from-gray-600 to-transparent'}`}
                     style={{ 
-                      height: '80px',
-                      top: isAbove ? 'auto' : '16px',
-                      bottom: isAbove ? '16px' : 'auto'
+                      height: '50px',
+                      top: isAbove ? 'auto' : '12px',
+                      bottom: isAbove ? '12px' : 'auto'
                     }}
                   />
 
                   {/* Icon on timeline */}
                   <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10" style={{ top: '0' }}>
-                    <div className={`milestone-icon ${isPast ? 'icon-past' : 'icon-future'} w-16 h-16 rounded-full flex items-center justify-center p-3 transition-all duration-500 shadow-glow`}>
+                    <div className={`milestone-icon ${isPast ? 'icon-past' : 'icon-future'} w-12 h-12 rounded-full flex items-center justify-center p-2 transition-all duration-500 shadow-glow`}>
                       <Icon />
                     </div>
                   </div>
 
                   {/* Content card - alternating above/below */}
                   <div 
-                    className={`absolute left-1/2 transform -translate-x-1/2 ${isAbove ? 'bottom-24' : 'top-24'}`}
-                    style={{ width: '280px' }}
+                    className={`absolute left-1/2 transform -translate-x-1/2 ${isAbove ? 'bottom-16' : 'top-16'}`}
+                    style={{ width: '200px' }}
                   >
-                    <div className={`milestone-card ${isPast ? 'milestone-past' : 'milestone-future'} p-4 rounded-lg transform transition-all duration-500 hover:scale-105 ${isAbove ? '' : ''}`}>
-                      <h3 className="text-xl font-bold text-gryffindor-gold mb-2 text-center">{milestone.title}</h3>
-                      <p className="text-gray-300 mb-2 text-sm text-center">{milestone.description}</p>
+                    <div className={`milestone-card ${isPast ? 'milestone-past' : 'milestone-future'} p-3 rounded-lg transform transition-all duration-500 hover:scale-105`}>
+                      <h3 className="text-base font-bold text-gryffindor-gold mb-1 text-center">{milestone.title}</h3>
+                      <p className="text-gray-300 mb-1 text-xs text-center">{milestone.description}</p>
                       <div className="text-xs text-gray-400 text-center">
                         {milestoneDate.toLocaleDateString('en-US', { 
                           month: 'short', 
@@ -166,17 +166,17 @@ export function Timeline() {
           {progressPercent > 0 && progressPercent < 100 && (
             <div 
               className="absolute transform -translate-y-1/2 transition-all duration-1000 z-20"
-              style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * 300}px`, top: '200px' }}
+              style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * 220}px`, top: '140px' }}
             >
               <div className="relative">
-                <div className="w-20 h-20 -ml-10 -mt-10">
+                <div className="w-14 h-14 -ml-7 -mt-7">
                   <div className="absolute inset-0 rounded-full bg-gryffindor-gold opacity-30 animate-ping" />
-                  <div className="relative w-full h-full rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center p-3 shadow-glow-strong animate-pulse-slow">
+                  <div className="relative w-full h-full rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center p-2 shadow-glow-strong animate-pulse-slow">
                     <IconComponents.wizard />
                   </div>
                 </div>
-                <div className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap" style={{ top: '70px' }}>
-                  <div className="bg-black/80 border-2 border-gryffindor-gold rounded-lg px-4 py-2 text-gryffindor-gold font-bold text-sm">
+                <div className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap" style={{ top: '50px' }}>
+                  <div className="bg-black/80 border-2 border-gryffindor-gold rounded-lg px-3 py-1 text-gryffindor-gold font-bold text-xs">
                     Now
                   </div>
                 </div>
@@ -187,15 +187,15 @@ export function Timeline() {
       </div>
 
       {/* Progress indicator at bottom */}
-      <div className="w-full max-w-4xl mx-auto mt-8 text-center">
-        <div className="text-lg text-gray-400 mb-2">Journey Progress</div>
-        <div className="relative w-full h-3 bg-gray-800 rounded-full overflow-hidden">
+      <div className="w-full max-w-3xl mx-auto mt-6 text-center">
+        <div className="text-sm text-gray-400 mb-2">Journey Progress</div>
+        <div className="relative w-full h-2 bg-gray-800 rounded-full overflow-hidden">
           <div 
             className="absolute left-0 top-0 h-full bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
-        <div className="text-2xl text-gryffindor-gold font-bold mt-2">{Math.round(progressPercent)}%</div>
+        <div className="text-xl text-gryffindor-gold font-bold mt-2">{Math.round(progressPercent)}%</div>
       </div>
     </div>
   );
