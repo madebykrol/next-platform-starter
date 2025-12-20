@@ -1,48 +1,124 @@
 {
-  "startDate": "2025-12-15T09:00:00Z",
-  "title": "Magical Journey Timeline",
+  "startDate": "2025-10-01T10:00:00Z",
+  "title": "Resplan – Julresa",
   "milestones": [
     {
-      "id": "start",
-      "title": "Platform 9¾",
-      "description": "The journey begins",
-      "date": "2025-12-15T09:00:00Z",
+      "id": "booking-trip",
+      "title": "Bokat resa",
+      "description": "Flyg, buss och hotell bokade",
+      "date": "2025-10-01T10:00:00Z",
+      "icon": "ticket"
+    },
+    {
+      "id": "entry-permit",
+      "title": "Fixat inresetillstånd",
+      "description": "Våra inresetillstånd är klara",
+      "date": "2025-11-20T10:10:00Z",
+      "icon": "document"
+    },
+    {
+      "id": "booked-christmas-dinner",
+      "title": "Bokat julmiddag",
+      "description": "Julmiddag bokad",
+      "date": "2025-12-16T12:30:00Z",
+      "icon": "food"
+    },
+
+    {
+      "id": "travel-to-karlstad",
+      "title": "Resa mot Karlstad",
+      "description": "Avfärd mot Karlstad",
+      "date": "2025-12-22T06:45:00Z",
+      "icon": "car"
+    },
+    {
+      "id": "bus-to-arlanda",
+      "title": "Buss mot Arlanda",
+      "description": "Bussresa till Arlanda",
+      "date": "2025-12-22T08:00:00Z",
+      "icon": "bus"
+    },
+    {
+      "id": "flight-from-arlanda",
+      "title": "Flyg från Arlanda",
+      "description": "Flyget lyfter från Arlanda",
+      "date": "2025-12-22T15:20:00Z",
+      "icon": "plane"
+    },
+    {
+      "id": "arrival-heathrow",
+      "title": "Landar på Heathrow",
+      "description": "Ankomst till Heathrow",
+      "date": "2025-12-22T17:10:00Z",
+      "icon": "plane-arrival"
+    },
+
+    {
+      "id": "towards-hogwarts",
+      "title": "Mot Hogwaaarz",
+      "description": "På väg mot Hogwarts",
+      "date": "2025-12-24T10:00:00Z",
+      "icon": "castle"
+    },
+
+    {
+      "id": "christmas-dinner",
+      "title": "Christmas Dinner",
+      "description": "Julmiddag",
+      "date": "2025-12-25T19:00:00Z",
+      "icon": "star"
+    },
+
+    {
+      "id": "travel-to-victoria-express",
+      "title": "Resa mot Victoria Express",
+      "description": "Avfärd mot Victoria Express",
+      "date": "2025-12-26T06:20:00Z",
       "icon": "train"
     },
     {
-      "id": "milestone1",
-      "title": "Hogsmeade Village",
-      "description": "First stop in the magical village",
-      "date": "2025-12-18T14:30:00Z",
-      "icon": "castle"
+      "id": "victoria-express",
+      "title": "Victoria Express till Heathrow",
+      "description": "Tågresa till Heathrow",
+      "date": "2025-12-26T07:00:00Z",
+      "icon": "train"
+    },
+
+    {
+      "id": "flight-from-heathrow",
+      "title": "Flyg från Heathrow",
+      "description": "Hemresa börjar",
+      "date": "2025-12-26T10:50:00Z",
+      "icon": "plane"
     },
     {
-      "id": "milestone2",
-      "title": "Forbidden Forest",
-      "description": "Adventure in the dark woods",
-      "date": "2025-12-22T10:00:00Z",
-      "icon": "tree"
+      "id": "arrival-arlanda",
+      "title": "Landar på Arlanda",
+      "description": "Ankomst till Arlanda",
+      "date": "2025-12-26T14:25:00Z",
+      "icon": "plane-arrival"
     },
     {
-      "id": "milestone3",
-      "title": "Diagon Alley",
-      "description": "Shopping for magical supplies",
-      "date": "2025-12-26T16:00:00Z",
-      "icon": "shop"
+      "id": "bus-to-karlstad",
+      "title": "Buss till Karlstad",
+      "description": "Bussresa från Arlanda",
+      "date": "2025-12-26T15:45:00Z",
+      "icon": "bus"
     },
     {
-      "id": "milestone4",
-      "title": "Hogwarts Castle",
-      "description": "Arrival at the grand castle",
-      "date": "2025-12-30T11:00:00Z",
-      "icon": "wand"
+      "id": "car-to-kil",
+      "title": "Bil till Kil",
+      "description": "Sista sträckan hem",
+      "date": "2025-12-26T20:25:00Z",
+      "icon": "car"
     },
     {
-      "id": "finale",
-      "title": "Great Hall Feast",
-      "description": "The grand celebration",
-      "date": "2026-01-05T19:00:00Z",
-      "icon": "star"
+      "id": "home",
+      "title": "HEMMA!!",
+      "description": "Resan är avslutad",
+      "date": "2025-12-26T21:00:00Z",
+      "icon": "home"
     }
   ]
 }
+
