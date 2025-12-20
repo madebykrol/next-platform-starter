@@ -96,6 +96,10 @@ export function Timeline() {
   const scrollContainerRef = useRef(null);
   const miniTimelineRef = useRef(null);
 
+  // Constants for navigation
+  const KEYBOARD_SCROLL_INCREMENT = 100; // pixels to scroll on arrow key press
+  const SINGLE_MILESTONE_POSITION = 50; // center position for single milestone (%)
+
   // Calculate scroll position from mouse event
   const calculateScrollFromPosition = (clientX) => {
     if (!scrollContainerRef.current || !miniTimelineRef.current) return;
@@ -323,11 +327,11 @@ export function Timeline() {
               if (e.key === 'ArrowLeft') {
                 e.preventDefault();
                 const container = scrollContainerRef.current;
-                if (container) container.scrollLeft -= 100;
+                if (container) container.scrollLeft -= KEYBOARD_SCROLL_INCREMENT;
               } else if (e.key === 'ArrowRight') {
                 e.preventDefault();
                 const container = scrollContainerRef.current;
-                if (container) container.scrollLeft += 100;
+                if (container) container.scrollLeft += KEYBOARD_SCROLL_INCREMENT;
               } else if (e.key === 'Home') {
                 e.preventDefault();
                 const container = scrollContainerRef.current;
@@ -344,7 +348,7 @@ export function Timeline() {
               // Handle single milestone case to avoid division by zero
               const position = timelineData.milestones.length > 1 
                 ? (index / (timelineData.milestones.length - 1)) * 100 
-                : 50;
+                : SINGLE_MILESTONE_POSITION;
               const milestoneDate = new Date(milestone.date);
               const isPast = currentTime >= milestoneDate;
               
