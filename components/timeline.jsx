@@ -132,19 +132,43 @@ export function Timeline() {
   useEffect(() => {
     if (!timelineData) return;
 
-    const start = new Date(timelineData.startDate).getTime();
-    const end = new Date(timelineData.milestones[timelineData.milestones.length - 1].date).getTime();
     const now = currentTime.getTime();
+    const milestones = timelineData.milestones;
+    const startTime = new Date(timelineData.startDate).getTime();
+    const firstMilestone = new Date(milestones[0].date).getTime();
+    const lastMilestone = new Date(milestones[milestones.length - 1].date).getTime();
 
-    let percent = 0;
-    if (now < start) {
-      percent = 0;
-    } else if (now > end) {
-      percent = 100;
+    // Find which segment we're in
+    let segmentIndex = 0;
+    let positionInSegment = 0;
+
+    if (now < firstMilestone) {
+      // Before first milestone
+      segmentIndex = 0;
+      positionInSegment = 0;
+    } else if (now >= lastMilestone) {
+      // After last milestone
+      segmentIndex = milestones.length - 1;
+      positionInSegment = 1;
     } else {
-      percent = ((now - start) / (end - start)) * 100;
+      // Between milestones - find which segment
+      for (let i = 0; i < milestones.length - 1; i++) {
+        const currentMilestoneTime = new Date(milestones[i].date).getTime();
+        const nextMilestoneTime = new Date(milestones[i + 1].date).getTime();
+        
+        if (now >= currentMilestoneTime && now < nextMilestoneTime) {
+          segmentIndex = i;
+          const segmentDuration = nextMilestoneTime - currentMilestoneTime;
+          const timeIntoSegment = now - currentMilestoneTime;
+          positionInSegment = segmentDuration > 0 ? timeIntoSegment / segmentDuration : 0;
+          break;
+        }
+      }
     }
-    setProgressPercent(percent);
+
+    // Calculate percentage based on milestone segments (each milestone is evenly spaced)
+    const percent = ((segmentIndex + positionInSegment) / (milestones.length - 1)) * 100;
+    setProgressPercent(Math.max(0, Math.min(100, percent)));
   }, [timelineData, currentTime]);
 
   // Track scroll position
