@@ -304,16 +304,12 @@ export function Timeline() {
 
       {/* Mini-timeline navigation with draggable wand */}
       <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-4/5 max-w-4xl z-50">
-        <div className="bg-black/80 backdrop-blur-sm border-2 border-gryffindor-gold rounded-lg p-4 shadow-glow-strong">
-          <div className="text-xs text-gryffindor-gold text-center mb-2 font-bold" id="mini-timeline-label">
-            Drag the wand to navigate
-          </div>
+        <div className="bg-black/90 backdrop-blur-sm border border-gryffindor-gold/50 rounded-lg px-4 py-2 shadow-lg">
           <div 
             ref={miniTimelineRef}
-            className="mini-timeline-track relative h-8 bg-gradient-to-r from-gryffindor-red via-gryffindor-gold to-gryffindor-red opacity-30 rounded-full cursor-pointer"
+            className="mini-timeline-track relative h-10 cursor-pointer"
             role="slider"
             aria-label="Timeline navigation slider"
-            aria-labelledby="mini-timeline-label"
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={Math.round(scrollPosition)}
@@ -343,7 +339,10 @@ export function Timeline() {
               }
             }}
           >
-            {/* Miniature milestones */}
+            {/* Background track line */}
+            <div className="absolute top-1/2 -translate-y-1/2 w-full h-0.5 bg-gradient-to-r from-gryffindor-red/30 via-gryffindor-gold/30 to-gryffindor-red/30" />
+            
+            {/* Miniature milestone icons */}
             {timelineData.milestones.map((milestone, index) => {
               // Handle single milestone case to avoid division by zero
               const position = timelineData.milestones.length > 1 
@@ -351,6 +350,7 @@ export function Timeline() {
                 : SINGLE_MILESTONE_POSITION;
               const milestoneDate = new Date(milestone.date);
               const isPast = currentTime >= milestoneDate;
+              const Icon = IconComponents[milestone.icon] || IconComponents.star;
               
               return (
                 <div
@@ -359,18 +359,24 @@ export function Timeline() {
                   style={{ left: `${position}%` }}
                   aria-hidden="true"
                 >
-                  <div className={`w-2 h-2 rounded-full ${isPast ? 'bg-gryffindor-gold' : 'bg-gray-600'}`} />
+                  <div className={`w-5 h-5 rounded-full flex items-center justify-center p-1 ${
+                    isPast 
+                      ? 'bg-gryffindor-gold/80 text-gryffindor-red' 
+                      : 'bg-gray-700/50 text-gray-500'
+                  }`}>
+                    <Icon />
+                  </div>
                 </div>
               );
             })}
             
             {/* Draggable wand indicator */}
             <div 
-              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 pointer-events-none"
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 pointer-events-none z-10"
               style={{ left: `${scrollPosition}%` }}
               aria-hidden="true"
             >
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center shadow-glow-strong">
+              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gryffindor-gold to-gryffindor-red flex items-center justify-center shadow-lg border-2 border-gryffindor-gold/50">
                 <IconComponents.wand />
               </div>
             </div>
