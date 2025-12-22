@@ -100,6 +100,7 @@ export function Timeline() {
   // Constants for navigation
   const KEYBOARD_SCROLL_INCREMENT = 100; // pixels to scroll on arrow key press
   const SINGLE_MILESTONE_POSITION = 50; // center position for single milestone (%)
+  const MILESTONE_WIDTH_PX = 220; // width of each milestone in pixels
 
   // Stable snowflake configurations - reduced for performance
   const snowflakes = useMemo(() => 
@@ -156,12 +157,30 @@ export function Timeline() {
   // Detect mobile viewport
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); // Tailwind md breakpoint
+      const newIsMobile = window.innerWidth < 768; // Tailwind md breakpoint
+      setIsMobile(prevIsMobile => {
+        // Only update if the mobile state actually changes
+        if (prevIsMobile !== newIsMobile) {
+          return newIsMobile;
+        }
+        return prevIsMobile;
+      });
     };
     
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    
+    // Debounce resize handler
+    let timeoutId;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkMobile, 150);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   useEffect(() => {
@@ -240,7 +259,7 @@ export function Timeline() {
     if (!container) return;
     
     // Calculate the position of the "now" marker
-    const nowPositionPx = (progressPercent / 100) * timelineData.milestones.length * 220;
+    const nowPositionPx = (progressPercent / 100) * timelineData.milestones.length * MILESTONE_WIDTH_PX;
     const viewportCenter = container.clientWidth / 2;
     const targetScroll = nowPositionPx - viewportCenter;
     
@@ -348,19 +367,19 @@ export function Timeline() {
           {/* Timeline line - horizontal base */}
           <div className="relative">
             <div className="h-1 bg-gradient-to-r from-gryffindor-gold via-gryffindor-red to-gryffindor-gold opacity-30" 
-                 style={{ width: `${timelineData.milestones.length * 220}px` }} />
+                 style={{ width: `${timelineData.milestones.length * MILESTONE_WIDTH_PX}px` }} />
             
             {/* Animated progress line - highlighted portion */}
             <div 
               className="absolute left-0 top-0 h-1 bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000 shadow-glow-strong"
-              style={{ width: `${(progressPercent / 100) * timelineData.milestones.length * 220}px` }}
+              style={{ width: `${(progressPercent / 100) * timelineData.milestones.length * MILESTONE_WIDTH_PX}px` }}
             />
 
             {/* Wizard "Now" indicator - at end of progress line */}
             {progressPercent > 0 && progressPercent < 100 && (
               <div 
                 className="absolute top-1/2 -translate-y-1/2 z-30 transition-all duration-1000"
-                style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * 220}px` }}
+                style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * MILESTONE_WIDTH_PX}px` }}
               >
                 <div className="relative -ml-7">
                   <div className="w-14 h-14">
@@ -395,7 +414,7 @@ export function Timeline() {
               const timezone = timezoneMap[milestone.locale] || 'UTC';
 
               return (
-                <div key={milestone.id} className="relative" style={{ width: '220px' }}>
+                <div key={milestone.id} className="relative" style={{ width: `${MILESTONE_WIDTH_PX}px` }}>
                   {/* Vertical connector line */}
                   <div 
                     className={`absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b ${isPast ? 'from-gryffindor-gold to-transparent' : 'from-gray-600 to-transparent'}`}
