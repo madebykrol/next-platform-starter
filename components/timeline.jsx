@@ -96,6 +96,7 @@ export function Timeline() {
   const [isMobile, setIsMobile] = useState(false);
   const scrollContainerRef = useRef(null);
   const miniTimelineRef = useRef(null);
+  const hasAutoScrolledRef = useRef(false); // Track if initial auto-scroll has happened
 
   // Constants for navigation
   const KEYBOARD_SCROLL_INCREMENT = 100; // pixels to scroll on arrow key press
@@ -246,11 +247,10 @@ export function Timeline() {
     return () => container.removeEventListener('scroll', handleScroll);
   }, [timelineData]);
 
-  // Auto-center "now" marker on mobile viewports
-  // Note: This runs when progressPercent changes (every second) to keep the marker centered
-  // as time progresses. This is intentional for a smooth, continuous centering experience.
+  // Auto-center "now" marker on mobile viewports (only on initial page load)
   useEffect(() => {
-    if (!isMobile || !timelineData || isDragging) return;
+    // Only auto-scroll once on initial load
+    if (!isMobile || !timelineData || isDragging || hasAutoScrolledRef.current) return;
     
     const container = scrollContainerRef.current;
     if (!container) return;
@@ -261,14 +261,15 @@ export function Timeline() {
     const targetScroll = nowPositionPx - viewportCenter;
     const clampedScroll = Math.max(0, targetScroll);
     
-    // Only scroll if the difference is significant (more than 1px)
-    if (Math.abs(container.scrollLeft - clampedScroll) > 1) {
-      container.scrollTo({
-        left: clampedScroll,
-        behavior: 'smooth'
-      });
-    }
-  }, [isMobile, progressPercent, timelineData, isDragging]);
+    // Perform the initial auto-scroll
+    container.scrollTo({
+      left: clampedScroll,
+      behavior: 'smooth'
+    });
+    
+    // Mark that auto-scroll has happened
+    hasAutoScrolledRef.current = true;
+  }, [isMobile, timelineData, isDragging, progressPercent]);
 
   // Handle mini-timeline interaction
   const handleMiniTimelineInteraction = (e) => {
