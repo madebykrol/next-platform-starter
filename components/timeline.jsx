@@ -261,15 +261,17 @@ export function Timeline() {
     const targetScroll = nowPositionPx - viewportCenter;
     const clampedScroll = Math.max(0, targetScroll);
     
-    // Perform the initial auto-scroll
-    container.scrollTo({
-      left: clampedScroll,
-      behavior: 'smooth'
-    });
+    // Only scroll if the difference is significant (more than 1px)
+    if (Math.abs(container.scrollLeft - clampedScroll) > 1) {
+      container.scrollTo({
+        left: clampedScroll,
+        behavior: 'smooth'
+      });
+    }
     
     // Mark that auto-scroll has happened
     hasAutoScrolledRef.current = true;
-  }, [isMobile, timelineData, isDragging, progressPercent]);
+  }, [isMobile, timelineData, isDragging]);
 
   // Handle mini-timeline interaction
   const handleMiniTimelineInteraction = (e) => {
