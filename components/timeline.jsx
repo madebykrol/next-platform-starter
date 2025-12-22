@@ -158,18 +158,13 @@ export function Timeline() {
   useEffect(() => {
     const checkMobile = () => {
       const newIsMobile = window.innerWidth < 768; // Tailwind md breakpoint
-      setIsMobile(prevIsMobile => {
-        // Only update if the mobile state actually changes
-        if (prevIsMobile !== newIsMobile) {
-          return newIsMobile;
-        }
-        return prevIsMobile;
-      });
+      setIsMobile(newIsMobile);
     };
     
     checkMobile();
     
-    // Debounce resize handler
+    // Debounce resize handler using useRef would require restructuring
+    // Using local variable with proper cleanup is acceptable here
     let timeoutId;
     const handleResize = () => {
       clearTimeout(timeoutId);
@@ -252,6 +247,8 @@ export function Timeline() {
   }, [timelineData]);
 
   // Auto-center "now" marker on mobile viewports
+  // Note: This runs when progressPercent changes (every second) to keep the marker centered
+  // as time progresses. This is intentional for a smooth, continuous centering experience.
   useEffect(() => {
     if (!isMobile || !timelineData || isDragging) return;
     
@@ -262,12 +259,15 @@ export function Timeline() {
     const nowPositionPx = (progressPercent / 100) * timelineData.milestones.length * MILESTONE_WIDTH_PX;
     const viewportCenter = container.clientWidth / 2;
     const targetScroll = nowPositionPx - viewportCenter;
+    const clampedScroll = Math.max(0, targetScroll);
     
-    // Smooth scroll to center the marker
-    container.scrollTo({
-      left: Math.max(0, targetScroll),
-      behavior: 'smooth'
-    });
+    // Only scroll if the difference is significant (more than 1px)
+    if (Math.abs(container.scrollLeft - clampedScroll) > 1) {
+      container.scrollTo({
+        left: clampedScroll,
+        behavior: 'smooth'
+      });
+    }
   }, [isMobile, progressPercent, timelineData, isDragging]);
 
   // Handle mini-timeline interaction
