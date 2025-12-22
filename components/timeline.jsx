@@ -93,6 +93,7 @@ export function Timeline() {
   const [progressPercent, setProgressPercent] = useState(0);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const scrollContainerRef = useRef(null);
   const miniTimelineRef = useRef(null);
 
@@ -100,9 +101,9 @@ export function Timeline() {
   const KEYBOARD_SCROLL_INCREMENT = 100; // pixels to scroll on arrow key press
   const SINGLE_MILESTONE_POSITION = 50; // center position for single milestone (%)
 
-  // Stable snowflake configurations
+  // Stable snowflake configurations - reduced for performance
   const snowflakes = useMemo(() => 
-    Array.from({ length: 20 }, (_, i) => ({
+    Array.from({ length: 10 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
       duration: 10 + Math.random() * 10,
@@ -150,6 +151,17 @@ export function Timeline() {
       setCurrentTime(new Date());
     }, 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  // Detect mobile viewport
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768); // Tailwind md breakpoint
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   useEffect(() => {
@@ -219,6 +231,25 @@ export function Timeline() {
     
     return () => container.removeEventListener('scroll', handleScroll);
   }, [timelineData]);
+
+  // Auto-center "now" marker on mobile viewports
+  useEffect(() => {
+    if (!isMobile || !timelineData || isDragging) return;
+    
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    
+    // Calculate the position of the "now" marker
+    const nowPositionPx = (progressPercent / 100) * timelineData.milestones.length * 220;
+    const viewportCenter = container.clientWidth / 2;
+    const targetScroll = nowPositionPx - viewportCenter;
+    
+    // Smooth scroll to center the marker
+    container.scrollTo({
+      left: Math.max(0, targetScroll),
+      behavior: 'smooth'
+    });
+  }, [isMobile, progressPercent, timelineData, isDragging]);
 
   // Handle mini-timeline interaction
   const handleMiniTimelineInteraction = (e) => {

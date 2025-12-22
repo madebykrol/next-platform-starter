@@ -192,6 +192,7 @@
         pointer-events: none;
         z-index: 1;
         animation: snowfall linear infinite;
+        will-change: transform, opacity;
     }
 
     .snowflake:nth-child(odd) {
