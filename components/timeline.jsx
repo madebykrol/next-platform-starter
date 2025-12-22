@@ -250,7 +250,8 @@ export function Timeline() {
   // Auto-center "now" marker on mobile viewports (only on initial page load)
   useEffect(() => {
     // Only auto-scroll once on initial load
-    if (!isMobile || !timelineData || isDragging || hasAutoScrolledRef.current) return;
+    // Wait until we have valid progress data before auto-scrolling
+    if (!isMobile || !timelineData || isDragging || hasAutoScrolledRef.current || progressPercent === 0) return;
     
     const container = scrollContainerRef.current;
     if (!container) return;
@@ -271,7 +272,7 @@ export function Timeline() {
     
     // Mark that auto-scroll has happened
     hasAutoScrolledRef.current = true;
-  }, [isMobile, timelineData, isDragging]);
+  }, [isMobile, timelineData, isDragging, progressPercent]);
 
   // Handle mini-timeline interaction
   const handleMiniTimelineInteraction = (e) => {
