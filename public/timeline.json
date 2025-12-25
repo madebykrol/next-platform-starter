@@ -77,12 +77,19 @@
       "icon": "star",
       "locale": "en-GB"
     },
-
+{
+   "id": "wake-up",
+   "title": "Kliv upp!",
+   "description": "",
+   "date": "2025-12-26T05:15:00Z",
+   "icon": "stat",
+   "locale": "en-GB"
+},
     {
       "id": "travel-to-victoria-express",
       "title": "Resa mot Victoria Express",
       "description": "Avfärd mot Victoria Express - hemresan börjar",
-      "date": "2025-12-26T06:20:00Z",
+      "date": "2025-12-26T06:14:00Z",
       "icon": "train",
       "locale": "en-GB"
     },
