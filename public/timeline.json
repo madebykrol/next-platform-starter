@@ -114,7 +114,7 @@
       "id": "arrival-arlanda",
       "title": "Landar på Arlanda",
       "description": "Tillbaka i Sverige med magiska minnen",
-      "date": "2025-12-26T14:25:00Z",
+      "date": "2025-12-26T13:25:00Z",
       "icon": "plane-arrival",
       "locale": "sv-SE"
     },
@@ -122,7 +122,7 @@
       "id": "bus-to-karlstad",
       "title": "Buss till Karlstad",
       "description": "Bussresa från Arlanda - snart hemma",
-      "date": "2025-12-26T15:45:00Z",
+      "date": "2025-12-26T14:45:00Z",
       "icon": "bus",
       "locale": "sv-SE"
     },
