@@ -88,7 +88,7 @@
     {
       "id": "travel-to-victoria-express",
       "title": "Resa mot Victoria Express",
-      "description": "Avfärd mot Victoria Express - hemresan börjar",
+      "description": "Avfärd mot Victoria Express med 390 - hemresan börjar",
       "date": "2025-12-26T06:14:00Z",
       "icon": "train",
       "locale": "en-GB"
@@ -96,7 +96,7 @@
     {
       "id": "victoria-express",
       "title": "Victoria Express till Heathrow",
-      "description": "Tågresa - precis som Hogwartsexpressen! 🚂",
+      "description": "Bussresa NX 032 - nästan som Hogwartsexpressen! 🚂",
       "date": "2025-12-26T07:00:00Z",
       "icon": "train",
       "locale": "en-GB"
