@@ -257,7 +257,7 @@ export function Timeline() {
     if (!container) return;
     
     // Calculate the position of the "now" marker
-    const nowPositionPx = (progressPercent / 100) * timelineData.milestones.length * MILESTONE_WIDTH_PX;
+    const nowPositionPx = (progressPercent / 100) * (timelineData.milestones.length - 1) * MILESTONE_WIDTH_PX;
     const viewportCenter = container.clientWidth / 2;
     const targetScroll = nowPositionPx - viewportCenter;
     const clampedScroll = Math.max(0, targetScroll);
@@ -376,14 +376,14 @@ export function Timeline() {
             {/* Animated progress line - highlighted portion */}
             <div 
               className="absolute left-0 top-0 h-1 bg-gradient-to-r from-gryffindor-gold to-gryffindor-red transition-all duration-1000 shadow-glow-strong"
-              style={{ width: `${(progressPercent / 100) * timelineData.milestones.length * MILESTONE_WIDTH_PX}px` }}
+              style={{ width: `${(progressPercent / 100) * (timelineData.milestones.length - 1) * MILESTONE_WIDTH_PX}px` }}
             />
 
             {/* Wizard "Now" indicator - at end of progress line */}
             {progressPercent > 0 && progressPercent < 100 && (
               <div 
                 className="absolute top-1/2 -translate-y-1/2 z-30 transition-all duration-1000"
-                style={{ left: `${(progressPercent / 100) * timelineData.milestones.length * MILESTONE_WIDTH_PX}px` }}
+                style={{ left: `${(progressPercent / 100) * (timelineData.milestones.length - 1) * MILESTONE_WIDTH_PX}px` }}
               >
                 <div className="relative -ml-7">
                   <div className="w-14 h-14">
